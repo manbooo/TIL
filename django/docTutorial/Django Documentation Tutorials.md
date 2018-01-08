@@ -1084,8 +1084,8 @@ def vote(request, question_id):
 
 - 테스트 : 코드의 동작을 체크하는 작업
   -  소프트웨어의 전반적인 작동을 검사
-  - 특정 모델 메서드는 예상대로 값을 반환하는가?
-  - 사이트에서 사용자 입력 시퀀스가 원하는 결과를 생성하는가?
+  -  특정 모델 메서드는 예상대로 값을 반환하는가?
+  -  사이트에서 사용자 입력 시퀀스가 원하는 결과를 생성하는가?
 - 테스트 작업이 시스템에서 수행
 
 
@@ -1094,7 +1094,7 @@ def vote(request, question_id):
 
 - 테스트를 통해 시간을 절약 할 수 있다.
   -  제대로 작동하는지 확인
-  - 어플리케이션을 수동으로 테스트하거나 새로 발견된 문제의 원인을 확인하는 데 많은 시간을 투자하는 것보다 훨씬 더 효과적
+  -  어플리케이션을 수동으로 테스트하거나 새로 발견된 문제의 원인을 확인하는 데 많은 시간을 투자하는 것보다 훨씬 더 효과적
 - 테스트는 문제를 그저 식별하는 것이 아니라 예방
   - 테스트가 없으면 어플리케이션의 목적 또는 의도 된 동작이 다소 불투명
 - 코드를 더 매력적으로 만든다
@@ -1117,7 +1117,7 @@ def vote(request, question_id):
 
 - `Question.was_published_recently()` 메소드
   - `Question`이 어제 안에 게시 된 경우 `True`를 반환(올바른 동작)
-  -  `Question`의 `pub_date` 필드가 미래로 설정되어 있을때도 그렇습니다(틀린 동작)
+  - `Question`의 `pub_date` 필드가 미래로 설정되어 있을때도 그렇습니다(틀린 동작)
 
 ```python
 >>> import datetime
@@ -1232,7 +1232,7 @@ def test_was_published_recently_with_recent_question(self):
 ###### 장고 테스트 클라이언트
 
 -  뷰 레벨에서 코드와 상호 작용하는 사용자를 시뮬레이트하기위해 테스트 클라이언트 클래스 [`Client`](https://docs.djangoproject.com/ko/2.0/topics/testing/tools/#django.test.Client)를 제공
-- `tests.py`또는 [`shell`](https://docs.djangoproject.com/ko/2.0/ref/django-admin/#django-admin-shell)에서 사용
+-  `tests.py`또는 [`shell`](https://docs.djangoproject.com/ko/2.0/ref/django-admin/#django-admin-shell)에서 사용
 
 
 
@@ -1245,7 +1245,7 @@ def test_was_published_recently_with_recent_question(self):
 -  [`setup_test_environment()`](https://docs.djangoproject.com/ko/2.0/topics/testing/advanced/#django.test.utils.setup_test_environment)를 사용하여 템플릿 렌더러를 설치
   - 테스트 데이터베이스를 셋업하지 않는다
   - 테스트는 현재 사용중인 데이터베이스위에서 실행
-- `settings.py`의 `TIME_ZONE`이 올바르지 않으면 예기치 않은 결과가 발생
+-  `settings.py`의 `TIME_ZONE`이 올바르지 않으면 예기치 않은 결과가 발생
 
 
 
@@ -1433,6 +1433,7 @@ class QuestionDetailViewTests(TestCase):
 
 
 
+
 ##### 5) 테스트 할 때는, 많이 할 수록 좋다
 
 - 테스팅에서 반복하는 것은 좋은 일
@@ -1444,10 +1445,97 @@ class QuestionDetailViewTests(TestCase):
 
 
 
-###### 6) 추가 테스팅
+
+##### 6) 추가 테스팅
 
 -  [`LiveServerTestCase`](https://docs.djangoproject.com/ko/2.0/topics/testing/tools/#django.test.LiveServerTestCase)가 포함되어있어 Selenium과 같은 도구와 쉽게 통합
-- 복잡한 어플리케이션을 사용하는 경우 [연속적으로 통합](https://en.wikipedia.org/wiki/Continuous_integration) 하기 위해 모든 커밋마다 자동으로 테스트를 실행하여 품질 제어가 적어도 부분적으로 자동화되도록
-- 코드 커버리지를 확인 : 커버리지는 죽은 코드를 확인하는 데 도움
+-  복잡한 어플리케이션을 사용하는 경우 [연속적으로 통합](https://en.wikipedia.org/wiki/Continuous_integration) 하기 위해 모든 커밋마다 자동으로 테스트를 실행하여 품질 제어가 적어도 부분적으로 자동화되도록
+-  코드 커버리지를 확인 : 커버리지는 죽은 코드를 확인하는 데 도움
   -  [Integration with coverage.py](https://docs.djangoproject.com/ko/2.0/topics/testing/advanced/#topics-testing-code-coverage)
+
+
+---
+
+### 6. [첫 번째 장고 앱 작성하기, part 6](https://docs.djangoproject.com/ko/2.0/intro/tutorial06/#writing-your-first-django-app-part-6)
+
+- 스타일 시트와 이미지를 추가
+- 정적 파일
+  - 전체 웹 페이지를 렌더링하는 데 필요한 추가 파일
+  - 이미지, JavaScript 또는 CSS 
+- `django.contrib.staticfiles`
+  - 각 응용 프로그램(및 여러분이 지정한 다른 위치)의 정적 파일들을 프로덕션 환경에서 쉽게 제공 할 수있는 단일 위치로 수집
+
+
+
+##### 1) 앱의 모양과 느낌을 원하는 대로 바꿔보세요.
+
+- Django의 [`STATICFILES_FINDERS`](https://docs.djangoproject.com/ko/2.0/ref/settings/#std:setting-STATICFILES_FINDERS) 설정은 다양한 소스에서 정적 파일을 찾는 방법을 알고 있는 파인더 목록을 가지고 있습니다.
+  - `AppDirectoriesFinder` : [`INSTALLED_APPS`](https://docs.djangoproject.com/ko/2.0/ref/settings/#std:setting-INSTALLED_APPS) 에서 "정적" 하위 디렉토리를 탐색
+- 관리 사이트는 정적 파일에 대해 동일한 디렉토리 구조를 사용합니다.
+
+>##### 정적 파일 네임 스페이싱
+>
+>- 템플릿과 마찬가지로, 정적 파일을 `polls/static`에 직접 둘 수도 있음(`polls` 하위 디렉토리를 만들지 않고 하지만 실제로는 좋지 않다. )
+>  - Django는 이름이 일치하는 첫 번째 정적 파일을 선택
+>- 만약 다른 응용 프로그램에 같은 이름의 정적 파일이있는 경우에는 이들을 구별 불가
+>- 정적 파일을 응용 프로그램 자체의 다른 디렉토리에 두는 것입니다.
+
+
+
+###### polls/static/polls/style.css
+
+- `AppDirectoriesFinder` 정적 파일 파인더가 작동하는 방식에 따라 Django의 정적 파일을 `polls/style.css` 라고 간단하게 참조
+- 템플릿 경로를 참조하는 것과 유사
+
+```css
+li a {
+    color: green;
+}
+```
+
+
+
+###### polls/templates/polls/index.html
+
+```html
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+```
+
+- `{% static %}` 템플릿 태그는 정적 파일의 절대 URL을 생성
+
+
+
+##### 2) 백그라운드 이미지를 추가합니다.
+
+- `polls/static/polls/` 디렉토리에 `images` 서브 디렉토리 생성
+-  `background.jpg`라는 이미지 파일 저장
+
+
+
+###### polls/static/polls/style.css
+
+```css
+body {
+    background: white url("images/background.jpg") no-repeat right bottom;
+}
+```
+
+
+
+###### 참고
+
+- 장고가 생성하지 않은 스타일 시트 같은 정적 파일에는 `{% static %}` 템플릿 태그는 사용 불가
+- 정적 파일 사이에서 링크는 **상대 경로**를 사용
+
+
+
+##### 부가 설명
+
+- [정적 파일 howto](https://docs.djangoproject.com/ko/2.0/howto/static-files/)
+-  [정적파일 레퍼런스](https://docs.djangoproject.com/ko/2.0/ref/contrib/staticfiles/)
+- [정적 파일 배포](https://docs.djangoproject.com/ko/2.0/howto/static-files/deployment/) : 실제 서버에서 정적 파일을 사용하는 방법을 설명
+
+---
 
