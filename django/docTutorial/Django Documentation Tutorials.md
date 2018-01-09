@@ -1539,3 +1539,5 @@ body {
 
 ---
 
+### 7. [첫 번째 장고 앱 작성하기, part 7](https://docs.djangoproject.com/ko/2.0/intro/tutorial07/#writing-your-first-django-app-part-7)
+
