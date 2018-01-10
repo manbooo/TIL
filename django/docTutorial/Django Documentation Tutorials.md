@@ -1510,7 +1510,7 @@ li a {
 ##### 2) 백그라운드 이미지를 추가합니다.
 
 - `polls/static/polls/` 디렉토리에 `images` 서브 디렉토리 생성
--  `background.jpg`라는 이미지 파일 저장
+- `background.jpg`라는 이미지 파일 저장
 
 
 
@@ -1534,10 +1534,286 @@ body {
 ##### 부가 설명
 
 - [정적 파일 howto](https://docs.djangoproject.com/ko/2.0/howto/static-files/)
--  [정적파일 레퍼런스](https://docs.djangoproject.com/ko/2.0/ref/contrib/staticfiles/)
+- [정적파일 레퍼런스](https://docs.djangoproject.com/ko/2.0/ref/contrib/staticfiles/)
 - [정적 파일 배포](https://docs.djangoproject.com/ko/2.0/howto/static-files/deployment/) : 실제 서버에서 정적 파일을 사용하는 방법을 설명
 
 ---
 
 ### 7. [첫 번째 장고 앱 작성하기, part 7](https://docs.djangoproject.com/ko/2.0/intro/tutorial07/#writing-your-first-django-app-part-7)
+
+- 관리자 페이지 커스터마이징
+
+
+
+##### 1) 관리자 폼 커스터마이징
+
+- `Question` 모델을 `admin.site.register(Question)`에 등록함으로써, Django는 디폴트 폼 표현을 구성
+- 관리 폼이 보이고 작동하는 방법을 커스터마이징하려는 경우
+  - 객체를 등록 할 때 Django에 원하는 옵션을 알려주면 커스터마이징 할 수 있다.
+
+
+
+###### polls/admin.py : fields
+
+```python
+from django.contrib import admin
+
+from .models import Question
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    fields = ['pub_date', 'question_text']
+
+admin.site.register(Question, QuestionAdmin)
+```
+
+- 모델의 관리자 옵션을 변경해야 할 때
+  - 모델 어드민 클래스를 만든 다음, `admin.site.register()`에 두 번째 인수로 전달
+
+
+
+###### polls/admin.py : fieldset
+
+```python
+from django.contrib import admin
+
+from .models import Question
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None,               {'fields': ['question_text']}),
+        ('Date information', {'fields': ['pub_date']}),
+    ]
+
+admin.site.register(Question, QuestionAdmin)
+```
+
+- [`fieldsets`](https://docs.djangoproject.com/ko/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.fieldsets)의 각 튜플의 첫 번째 요소는 fieldset의 제목
+
+
+
+##### 2) 관련된 객체 추가
+
+-   `Question`은 여러 개의 `Choice`들을 가지고 있음에도, admin 페이지는 선택 사항을 표시하지 않는다.
+  - `Question`에서 했던 것처럼 관리자에 `Choice`를 등록
+
+
+
+###### polls/admin.py : 관리자에 `Choice`를 등록
+
+```python
+from django.contrib import admin
+
+from .models import Choice, Question
+# ...
+admin.site.register(Choice)
+```
+
+-  "Question" 필드는 데이터베이스의 모든 질문을 포함하는 select box
+  -  Django는 [`ForeignKey`](https://docs.djangoproject.com/ko/2.0/ref/models/fields/#django.db.models.ForeignKey)가 admin에서 `<select>`로 표현되어야 함을 인지
+-  "Add Another" 
+  - `ForeignKey` 관계를 가진 모든 객체는 저 링크가 붙는다.
+  -  "Add question" 폼이 있는 팝업 창이 나타남
+
+
+
+
+
+###### polls/admin.py :  `Question` 객체를 생성 할 때 여러개의 Choices를 직접 추
+
+```python
+from django.contrib import admin
+
+from .models import Choice, Question
+
+
+class ChoiceInline(admin.StackedInline):
+    model = Choice
+    extra = 3
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None,               {'fields': ['question_text']}),
+        ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
+    ]
+    inlines = [ChoiceInline]
+
+admin.site.register(Question, QuestionAdmin)
+```
+
+- `Choice` 객체는 `Question` 관리자 페이지에서 편집된다. 기본으로 3가지 선택 항목을 제공
+
+
+
+###### polls/admin.py : 인라인 관련 객체를 표시하는 표 형식의 방법
+
+```python
+class ChoiceInline(admin.TabularInline):
+    #...
+```
+
+- `StackedInline` 대신에 `TabularInline`을 사용하면, 관련된 객체는 좀 더 조밀하고 테이블 기반 형식으로 표시
+- "Delete?" 열
+  -  "Add Another Choice" 버튼으로 추가된 행과 이미 저장된 행을 삭제하는데 사용
+
+
+
+##### 3) 관리자 변경 목록(change_list) 커스터마이징
+
+- 시스템의 모든 질문을 표시하는 "변경 목록" 페이지
+
+
+
+###### polls/admin.py : 개별 필드를 표시
+
+```python
+class QuestionAdmin(admin.ModelAdmin):
+    # ...
+    list_display = ('question_text', 'pub_date', 'was_published_recently')
+```
+
+- Django는 각 객체의 `str()`을 표시
+- 개별 필드를 표시 
+  - [`list_display`](https://docs.djangoproject.com/ko/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display) admin 옵션을 사용
+  - 객체의 변경 목록 페이지에서 열로 표시 할 필드 이름들의 튜플
+
+
+
+###### polls/models.py : `was_published_recently` 헤더의 경우를 제외하고 그 값으로 정렬 
+
+```python
+class Question(models.Model):
+    # ...
+    def was_published_recently(self):
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
+    was_published_recently.admin_order_field = 'pub_date'
+    was_published_recently.boolean = True
+    was_published_recently.short_description = 'Published recently?'
+```
+
+- 임의의 메서드의 출력에 의한 정렬은 지원되지 않기 때문
+-  `was_published_recently`에 대한 열 머리글은 기본적으로 메서드 이름 (밑줄을 공백으로 대체)
+  - 각 줄에는 출력의 문자열 표현이 포함
+- [`list_display`](https://docs.djangoproject.com/ko/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display)
+
+
+
+###### polls/admin.py :  [`list_filter`](https://docs.djangoproject.com/ko/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_filter)를 사용 
+
+```python
+# QuestionAdmin에 다음 줄을 추가
+list_filter = ['pub_date']
+```
+
+- `pub_date`는 [`DateTimeField`](https://docs.djangoproject.com/ko/2.0/ref/models/fields/#django.db.models.DateTimeField)이므로, Django는 "Any date", "Today", "Past 7 days", "This month", "This year" 등의 적절한 필터 옵션을 제공
+
+
+
+###### polls/admin.py : 검색기능 추가
+
+```python
+search_fields = ['question_text']
+```
+
+- `question_text` 필드를 검색
+- 원하는만큼의 필드를 사용 가능
+  - 내부적으로 `LIKE` 쿼리를 사용하기 때문에 검색 필드의 수를 적당한 수로 제한하면 데이터베이스가 검색을 더 쉽게 가능
+
+
+
+- 변경 목록이 자동 페이징 기능을 제공
+- 기본값은 페이지 당 100 개의 항목을 표시
+-  [`변경 목록 페이지내이션`](https://docs.djangoproject.com/ko/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_per_page), [`검색 상자`](https://docs.djangoproject.com/ko/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.search_fields), [`필터`](https://docs.djangoproject.com/ko/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_filter), [`날짜-계층구조`](https://docs.djangoproject.com/ko/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.date_hierarchy), 그리고 [`컬럼-헤더-정렬`](https://docs.djangoproject.com/ko/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display) 모두 함께 작동
+
+
+
+##### 4) 관리자 룩앤필 커스터마이징
+
+-  Django 관리자는 Django 자체에 의해 구동되며 인터페이스는 Django 자신의 템플릿 시스템을 사용
+
+
+
+###### 프로젝트의 템플릿 커스터마이징
+
+- 프로젝트 디렉토리 (`manage.py`를 포함하고있는)에 `templates` 디렉토리 생성
+- 템플릿은 장고가 액세스 할 수있는 파일 시스템 어디에서나 사용 가능
+  - Django는 서버가 실행되는 사용자로 실행
+- 프로젝트 내에 템플릿을 유지하는 것은 따라야 할 좋은 규칙
+
+
+
+###### mysite/settings.py :  [`DIRS`](https://docs.djangoproject.com/ko/2.0/ref/settings/#std:setting-TEMPLATES-DIRS) 옵션을 [`TEMPLATES`](https://docs.djangoproject.com/ko/2.0/ref/settings/#std:setting-TEMPLATES) 설정에 추가
+
+```ㅔㅛ쇄ㅜ
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+```
+
+- [`DIRS`](https://docs.djangoproject.com/ko/2.0/ref/settings/#std:setting-TEMPLATES-DIRS)는 Django 템플릿을 로드 할 때 검사 할 파일 시스템 디렉토리 목록, 검색 경로
+
+
+
+>**템플릿 구성**
+>
+>- 정적 파일과 마찬가지로, 하나의 커다란 템플릿 디렉토리에 모든 템플릿을 함께 넣을 수 있다.
+>- 특정 애플리케이션에 속한 템플릿은 프로젝트(`templates`) 가 아닌 해당 애플리케이션의 템플릿 디렉토리(예: `polls/templates`)에 있어야 한다. 
+>  - [reusable apps tutorial](https://docs.djangoproject.com/ko/2.0/intro/reusable-apps/) 
+
+
+
+-  `templates` 디렉토리에 `admin`이라는 디렉토리 생성
+
+- 장고 자체 소스 코드 (`django/contrib/admin/templates`)을 해당 디렉토리에 복사
+
+  ```bash
+  python -c "import django; print(django.__path__)"
+  ```
+
+
+
+
+
+###### templates\admin\admin\base_site.html
+
+```html
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Polls Administration</a></h1>
+{% endblock %}
+```
+
+- 실제 프로젝트에서는 아마 [`django.contrib.admin.AdminSite.site_header`](https://docs.djangoproject.com/ko/2.0/ref/contrib/admin/#django.contrib.admin.AdminSite.site_header) 속성을 사용
+- Django가 `admin/base_site.html`을 렌더링 할 때, 이 템플릿 언어는 [Tutorial 3](https://docs.djangoproject.com/ko/2.0/intro/tutorial03/) 에서 보았 듯이 최종 HTML 페이지를 생성하기 위해 평가
+
+
+
+###### 어플리케이션의 템플릿 사용자 정의
+
+-  [`DIRS`](https://docs.djangoproject.com/ko/2.0/ref/settings/#std:setting-TEMPLATES-DIRS)가 기본설정으로 비어 있다면, 
+  -  [`APP_DIRS`](https://docs.djangoproject.com/ko/2.0/ref/settings/#std:setting-TEMPLATES-APP_DIRS) 설정이 `True`로 설정되어 있기 때문에 Django는 각 어플리케이션 패키지 내에서 `templates/` 서브 디렉토리를 자동으로 찾아서 대체
+
+
+
+##### 5) admin 인덱스 페이지 수정하기
+
+- 커스터마이징 할 템플릿은 `admin/index.html`
+-  `app_list`
+  - 설치된 모든 장고 앱을 포함
+
+---
 
