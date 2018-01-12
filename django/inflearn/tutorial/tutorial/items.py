@@ -7,7 +7,7 @@
 
 import scrapy
 
-class TutorialItem(scrapy.Item):
+class DmozItem(scrapy.Item):
     title = scrapy.Field()
     link = scrapy.Field()
     desc = scrapy.Field()
