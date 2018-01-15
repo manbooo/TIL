@@ -1,63 +1,11 @@
-# 웹 크롤링을 이용한 서비스 개발
-
-### 1. Scrapy 를 이용해 클리앙, 보배드림 크롤링
-
-##### 0) 준비
-
-- 가상머신 접속
-
-
-- 가상환경 접속
-
-  ```bash
-  $ workon myenv
-  ```
-
-- scrapy project 생성
-
-  ```bash
-  $ scrapy startproject community
-  ```
-
-  ​
-
-##### 1) clien : 모두의 공원
-
-- https://www.clien.net/service/board/park
-- 제목, 글쓴이, url, 날짜 조회수
-
-
-
-###### items.py
-
-```python
-import scrapy
-
-
-class CommunityItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-
-    source = scrapy.Field()
-    category = scrapy.Field()
-    title = scrapy.Field()
-    url = scrapy.Field()
-    hits = scrapy.Field()
-    date = scrapy.Field()
-
-    pass
-```
-
-
-
-###### spiders 생성 : communitySpider.py
-
-```python
 # -*- coding: utf-8 -*-
 
 __author__ = 'jjuya'
 
-import scrapy
+import scrapy,re
+
+from community.items import CommunityItem
+from datetime import datetime
 
 class CommunitySpider(scrapy.Spider):
     name = "communityCrawler"
@@ -67,22 +15,7 @@ class CommunitySpider(scrapy.Spider):
         for i in range(1, 2, 1):
             yield scrapy.Request("https://www.clien.net/service/board/park?&od=T31&po=%d" % i, self.parse_clien)
 
-    
-```
-
-- `yield scrapy.Request(..)`
-  - `scrapy.Request`를 하나씩 쌓겠다.
-- `self.parse_clien`
-  - 실질적인 데이터 분석할 부분
-
-
-
-###### parser 생성 : communitySpider.py 
-
-```python
-# ....
-
-	def parse_clien(self, response):
+    def parse_clien(self, response):
         for sel in response.xpath('//*[@id="div_content"]/div[@class="list_item symph_row"]'):
             item = CommunityItem()
 
@@ -105,9 +38,3 @@ class CommunitySpider(scrapy.Spider):
             print item['title']
 
             yield item
-
-```
-
-
-
-##### 2) 
