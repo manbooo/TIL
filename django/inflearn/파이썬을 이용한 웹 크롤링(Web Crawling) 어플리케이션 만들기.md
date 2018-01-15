@@ -201,11 +201,28 @@ WWW 상에서 정보를 주고받을 수 있는 **프로토콜**(약속)
 scrapy startproject [프로젝트 명]
 ```
 
-- scrapy의 동작
-  - items 정의
-  - 스타트 url 지정(start_requests, start_urls), callback 함수 지정(parse())
-  - callback함수 정의
-    - selector(xpath, css)를 이용하여 데이터를 선택
+![scrapy](scrapyproject.png)
+
+- `spiders` : 크롤링 로직이 들어 있는 디렉토리
+- `items.py` : 대상에 대한 정보 등을 정의
+- `pipelines.py` : 저장된 정보를 가지고 크롤링한 이후의 처리 작업
+- `scrapy.cfg` : 전체 프로젝트 배포 시의 설정, 로그 변경 가능
+- `settings.py` : scrapy 프로젝트에 대한 설정
+
+
+
+
+###### scrapy의 동작
+
+- items 정의
+- 스타트 url 지정(start_requests, start_urls, callback 함수 지정(parse())
+  - `start_url` : list file, string list
+  - `start_requests` : 특정한 url에 대해서  callback 함수 지정 가능
+- callback함수 정의
+  - selector(xpath, css)를 이용하여 데이터를 선택
+- items.py에 데이터 넣는다.
+
+
 - Pipeline을 이용하여 데이터를 필터링 하거나 데이터베이스에 저장
 
 
@@ -224,6 +241,7 @@ scrapy startproject [프로젝트 명]
     - 사이트에 로그인을 할 때 사용
 - 파서 정의
   - `def parse(self, response):`
+- 여러개 지정해서 순차적으로 돌려도 되고, 필요한 것만 돌려도 된다.
 
 
 
