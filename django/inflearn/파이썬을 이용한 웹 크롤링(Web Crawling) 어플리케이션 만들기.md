@@ -253,6 +253,11 @@ scrapy startproject [프로젝트 명]
   - css vs xpath selector
 
 
+```
+>>> response.xpath('//title/text()')
+>>> response.css('title::text')`
+```
+
 
 
 
