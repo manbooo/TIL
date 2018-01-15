@@ -11,4 +11,12 @@ import scrapy
 class CommunityItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
+
+    source = scrapy.Field() # 위치 : 사이트 url
+    category = scrapy.Field() # 게시판
+    title = scrapy.Field()
+    url = scrapy.Field()
+    hits = scrapy.Field()
+    date = scrapy.Field()
+
     pass
