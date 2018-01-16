@@ -45,6 +45,25 @@ $ python -m venv myenv
 
 
 
+##### 1) 프로젝트 생성
+
+```bash
+(myenv) ~$ django-admin startproject tutorial
+```
+
+
+
+##### 2) app 생성
+
+```bash
+(myenv) ~$ python manage.py startapp community # windows
+(myenv) ~$ ./manage.py startapp community # ubuntu
+```
+
+
+
+
+
 ---
 
 ### 디렉토리 구조 확인
