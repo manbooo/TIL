@@ -48,14 +48,14 @@ class CommunitySpider(scrapy.Spider):
             item['source'] = 'bobae'
             item['category'] = 'free'
 
-            title = sel.xpath('//td[@class="pl14"]/a[@class="bsubject"]/text()').extract()[0]
+            title = sel.xpath('td[@class="pl14"]/a[@class="bsubject"]/text()').extract()[0]
             item['title'] = title.encode('utf-8')
 
             url = 'http://www.bobaedream.co.kr' + sel.xpath('//td[@class="pl14"]/a[@class="bsubject"]/@href').extract()[0]
             item['url'] = url
 
             date_now = datetime.now()
-            date_str_tmp = sel.xpath('//td[@class="date"]/text()').extract()[0]
+            date_str_tmp = sel.xpath('td[@class="date"]/text()').extract()[0]
 
             prog = re.compile('[0-9]{2}:[0-9]{2}')
             if prog.match(date_str_tmp):
