@@ -390,3 +390,75 @@ def list(request):
 
 ### 글 보기
 
+##### 0) 준비
+
+###### url 설정 : tutorial\urls.py
+
+```python
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', index, name = 'index'),
+    path('write/', write, name = 'write'),
+    path('list/', list, name = 'list'),
+    path('view/<int:article_id>', view),
+]
+```
+
+
+
+##### 1) 글 보기 만들기
+
+###### community\views.py
+
+```python
+def view(request, article_id):
+    article = Article.objects.get(id=article_id)
+    return render(request, 'view.html',{'article':article})
+```
+
+
+
+######community\templates\view.html 
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>view</title>
+  </head>
+  <body>
+    제 목 : {{ article.title }}
+    <br>
+    저 자 : {{ article.name }}
+    <br>
+    내 용 :{{ article.contents }}
+    <br>
+    Email : {{ article.email }}
+    <br>
+  </body>
+</html>
+```
+
+
+
+######  community\templates\list.html
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>list</title>
+  </head>
+  <body>
+    <ul>
+      <li>제목 | 저자 | 날짜</li>
+      {% for article in articleList %}
+        <li><a href="/view/{{article.id}}">{{ article.title }}</a> | {{ article.name }} | {{ article.cdate|date:"D d M Y" }}</li>
+      {% endfor %}
+  </ul>
+  </body>
+</html>
+```
+

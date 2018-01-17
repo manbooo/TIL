@@ -19,7 +19,8 @@ from community.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'', index, name = 'index'),
-    path(r'write/', write, name = 'write'),
-    path(r'list/', list, name = 'list'),
+    path('', index, name = 'index'),
+    path('write/', write, name = 'write'),
+    path('list/', list, name = 'list'),
+    path('view/<int:article_id>', view),
 ]
