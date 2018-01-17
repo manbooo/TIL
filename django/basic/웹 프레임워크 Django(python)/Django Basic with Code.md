@@ -189,11 +189,200 @@ Running migrations:
 
 ### 글쓰기
 
+##### 0) 준비 
+
+###### url 설정 : tutorial\urls.py
+
+```python
+from community.views import *
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path(r'write/', write, name = 'write'),
+]
+```
+
+- `r'write/'` : 정규표현식
+
+
+
+##### 1) 글쓰기 폼 만들기
+
+###### community\views.py
+
+```python
+def write(request):
+    return render(request, 'write.html')
+```
+
+- `return render(request, 'write.html')`
+  - `request`가 오면 `write.html`(template)로 렌더하겠다.
+
+
+
+###### form 생성 : community\forms.py 
+
+```python
+from django.forms import ModelForm
+from community.models import *
+
+class Form(ModelForm):
+    class Meta:
+        model = Article
+        fields = ['name', 'title', 'contents', 'url', 'email']
+```
+
+- model을 이용하여 간편하게 생성
+
+
+
+###### form 전달 : community\views.py 
+
+```python
+from django.shortcuts import render
+from community.forms import *
+
+# Create your views here.
+def write(request):
+    form = Form()
+    return render(request, 'write.html', {'form': form})
+```
+
+
+
+###### community\templates\write.html
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>write</title>
+  </head>
+  <body>
+    <form action="" method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary">저장</button>
+    </form>
+  </body>
+</html>
+```
+
+- form 불러오기
+  - `{{ form.as_p }}`
+  - `{{ form.as_table }}`
+  - `{{ form.as_ul }}`
+
+
+
+###### 데이터 저장 : community\views.py
+
+```python
+from django.shortcuts import render
+from community.forms import *
+
+# Create your views here.
+def write(request):
+    if request.method == 'POST':
+        form = Form(request.POST)
+        if form.is_vaild():
+            form.save()
+    else:
+        form = Form()
+    
+    return render(request, 'write.html', {'form': form})
+```
+
+- `request.method`가 `POST`인 경우
+  - `form`에 그대로 넣고, `form`의 데이터가 유효하다면은 `form`을 저장
+- **`form.save()`** : database의 field에 저장
+
 
 
 ---
 
 ### 리스트
+
+##### 0) 준비
+
+###### url 설정 : tutorial\urls.py
+
+```python
+from community.views import *
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path(r'write/', write, name = 'write'),
+    path(r'list/', list, name = 'list'),
+]
+```
+
+
+
+##### 1) 리스트 만들기
+
+###### community\views.py
+
+```python
+def list(request):
+    return render(request, 'list.html')
+```
+
+
+
+###### community\templates\list.html
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>list</title>
+  </head>
+  <body>
+    This is list!
+  </body>
+</html>
+```
+
+
+
+###### 데이터 받아와 전달 : community\views.py 
+
+```python
+from community.models import *
+
+# ...
+
+def list(request):
+    articleList = Article.objects.all()
+    return render(request, 'list.html', {'articleList': articleList})
+```
+
+
+
+######  community\templates\list.html
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>list</title>
+  </head>
+  <body>
+    <ul>
+      <li>제목 | 저자 | 날짜</li>
+      {% for article in articleList %}
+        {{ article.title }} | {{ article.name }} | {{ article.cdate|date:"D d M Y" }}</li>
+      {% endfor %}
+  </ul>
+  </body>
+</html>
+```
+
+- `date:"D d M Y"` : date filter
 
 
 

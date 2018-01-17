@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>list</title>
+  </head>
+  <body>
+    <ul>
+      <li>제목 | 저자 | 날짜</li>
+      {% for article in articleList %}
+        <li>{{ article.title }} | {{ article.name }} | {{ article.cdate|date:"D d M Y" }}</li>
+      {% endfor %}
+  </ul>
+  </body>
+</html>
