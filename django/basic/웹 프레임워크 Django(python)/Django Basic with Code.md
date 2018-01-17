@@ -62,17 +62,126 @@ $ python -m venv myenv
 
 
 
+##### 3) database 생성
+
+```bash
+(myenv) ~$ python manage.py migrate # windows
+(myenv) ~$ ./manage.py migrate # ubuntu
+```
+
+- `db.sqlite3` 파일 생성
+- django가 필요한 기본적인 database table이 생성
+
+
+
+##### 4) superuser 생성
+
+```bash
+(myenv) ~$ python manage.py createsuperuser # windows
+(myenv) ~$ ./manage.py createsuperuser # ubuntu
+
+Username (leave blank to use 'jju_park'): admin
+Email address: admin@admin.kr
+Password: admin123123
+Password (again):
+
+Superuser created successfully.
+```
+
+
+
+##### 5) 서버 실행
+
+```bash
+(myenv) ~$ python manage.py runserver # windows
+(myenv) ~$ ./manage.py runserver # ubuntu
+```
+
 
 
 ---
 
 ### 디렉토리 구조 확인
 
+![djangoproject](djangoproject.png)
+
 
 
 ---
 
 ### 관리자 페이지 확인
+
+##### 1)  admin page
+
+- http://127.0.0.1:8000/admin
+
+
+- database의 데이터를 수정, 삭제, 생성 가능
+
+
+
+---
+
+### app 설정
+
+##### 1) app 등록 : tutorial\settings.py
+
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'community',
+]
+```
+
+
+
+##### 2) model 생성
+
+###### community\models.py
+
+```python
+class Article(models.Model):
+    name = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
+    contents = model.TextField()
+    url = models.URLField()
+    email = models.EmailField()
+    cdate = models.DateTimeField(auto_now_add=True)
+```
+
+- `model`은 `class`로 생성
+
+
+
+###### model을 database에 생성
+
+```bash
+(myenv) ~$ python manage.py makemigrations # windows
+(myenv) ~$ ./manage.py makemigrations # ubuntu
+
+Migrations for 'community':
+  community\migrations\0001_initial.py
+    - Create model Article
+```
+
+
+
+###### database에 적용
+
+```bash
+(myenv) ~$ python manage.py migrate # windows
+(myenv) ~$ ./manage.py migrate # ubuntu
+
+Operations to perform:
+  Apply all migrations: admin, auth, community, contenttypes, sessions
+Running migrations:
+  Applying community.0001_initial... OK
+```
 
 
 
