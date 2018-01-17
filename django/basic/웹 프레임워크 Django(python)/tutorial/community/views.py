@@ -6,7 +6,11 @@ from community.models import *
 # Create your views here.
 
 def index(request):
-    articleList = Article.objects.all()
+    try:
+        articleList = Article.objects.all()
+    except Article.DoesNotExist:
+        raise Http404("Articles do not exist")
+
     return render(request, 'list.html', {'articleList': articleList})
 
 def write(request):
@@ -24,5 +28,9 @@ def write(request):
 
 
 def list(request):
-    articleList = Article.objects.all()
+    try:
+        articleList = Article.objects.all()
+    except Article.DoesNotExist:
+        raise Http404("Articles do not exist")
+
     return render(request, 'list.html', {'articleList': articleList})
