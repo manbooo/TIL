@@ -9,16 +9,12 @@
       <h1><a href="">JJu's blog</a></h1>
     </div>
 
-    <div class="">
-      <p>published : </p>
-      <h2><a href=""> post title</a></h2>
-      <p>content!!!!!</p>
-    </div>
-
-    <div class="">
-      <p>published : </p>
-      <h2><a href=""> post title2</a></h2>
-      <p>content!!!!!</p>
-    </div>
+    {% for post in posts %}
+      <div>
+        <p> published : {{ post.published_date }} </p>
+        <h3><a href=""> {{ post.titl e}} </a></h3>
+        <p> {{ post.text|linebreaksbr }} </p>
+      </div>
+    {% endfor %}
   </body>
 </html>
