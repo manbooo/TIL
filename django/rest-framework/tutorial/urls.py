@@ -16,8 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 
+# 7. Schemas and client libraries
+from rest_framework.schemas import get_schema_view
+
+schema_view = get_schema_view(title='Pastebin API')
 
 urlpatterns = [
-    # url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
     url(r'^', include('snippets.urls')),
+    # 4. Authentication and Permission (Adding login to the Browsable API)
+    url(r'api-auth/', include('rest_framework.urls')),
+    # 7. Schemas and client libraries
+    url(r'^schema/$', schema_view),
 ]
