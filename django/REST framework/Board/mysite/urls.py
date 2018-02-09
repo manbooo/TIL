@@ -19,10 +19,18 @@ from django.urls import path
 
 from rest_framework_swagger.views import get_swagger_view
 
+from blog.views import *
+
 schema_view = get_swagger_view(title='Pastebin API')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^rest-api/', include('rest_framework.urls')),
     url(r'^rest-swagger/', schema_view),
+
+    # blog
+    url(r'^blog/', blog_page),
+
+    # REST API
+    url(r'^api/blog/', blog_api.as_view()),
 ]

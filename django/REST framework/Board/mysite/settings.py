@@ -43,6 +43,9 @@ INSTALLED_APPS = [
 
     # REST framework Swagger
     'rest_framework_swagger',
+
+    # blog
+    'blog',
 ]
 
 MIDDLEWARE = [
