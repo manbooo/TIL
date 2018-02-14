@@ -5,6 +5,27 @@
     <title>post list</title>
   </head>
   <body>
-    Hello, '{{ python_word }}' world!
+    <table>
+      <thead>
+        <tr>
+          <th> Title </th>
+          <th> Author </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in post_list %}
+          <tr>
+            <td>{{ post.title }}</td>
+            <td>{{ post.author }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% for page in total_page %}
+      <a {% if current_page != page %} href="?page={{ page }}" {% endif %}>
+        <span {% if current_page == page %} style="font-weight: bold;" {% endif %}>{{ page }}</span>
+      </a>
+    {% endfor %}
   </body>
 </html>
