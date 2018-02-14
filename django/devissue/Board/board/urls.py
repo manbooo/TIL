@@ -1,4 +1,4 @@
-"""tutorial URL Configuration
+"""board URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.0/topics/http/urls/
@@ -14,18 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.conf.urls import url, include
-
-# 7. Schemas and client libraries
-from rest_framework.schemas import get_schema_view
-
-schema_view = get_schema_view(title='Pastebin API')
+from django.urls import path
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^', include('snippets.urls')),
-    # 4. Authentication and Permission (Adding login to the Browsable API)
-    url(r'api-auth/', include('rest_framework.urls')),
-    # 7. Schemas and client libraries
-    url(r'^schema/$', schema_view),
+    path('admin/', admin.site.urls),
 ]
