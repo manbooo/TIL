@@ -21,11 +21,13 @@
         {% endfor %}
       </tbody>
     </table>
-
+    
     {% for page in total_page %}
-      <a {% if current_page != page %} href="?page={{ page }}" {% endif %}>
-        <span {% if current_page == page %} style="font-weight: bold;" {% endif %}>{{ page }}</span>
-      </a>
+      {% if current_page != page %}
+        <a href="?page={{ page }}"> {{ page }} </a>
+      {% else %}
+        <span style="font-weight: bold;"> {{ page }} </span>
+      {% endif %}
     {% endfor %}
   </body>
 </html>
