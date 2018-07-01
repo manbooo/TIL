@@ -6,7 +6,7 @@ print()
 import cgi
 
 form = cgi.FieldStorage()
-pageId = form["id"].value
+pageId = 'Welcome'
 
 print('''
 <!doctype html>
@@ -16,7 +16,7 @@ print('''
       <meta charset="utf-8">
     </head>
     <body>
-      <h1><a href="index_no_id.py">WEB</a></h1>
+      <h1><a href="index.py">WEB</a></h1>
       <ol>
         <li><a href="index.py?id=HTML">HTML</a></li>
         <li><a href="index.py?id=CSS">CSS</a></li>
