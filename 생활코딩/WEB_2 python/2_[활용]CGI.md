@@ -128,3 +128,35 @@ print('''
 ```
 
 - 이 경우 ID값이 없는 경우 에러 발생
+
+
+
+### CGI 소개
+
+- 웹서버와 언어들이 상호간에 쉽게 연결될 수 있도록 만든 규약
+
+![CGI](http://www.sergey.com/web_course/images/cgi.jpg)
+
+
+
+- 웹서버가 사용자의 요청에 따라서 `cgi_env` app 에 전달하는 데이터들이 출력
+
+```python
+# cgi_env.py 
+
+#!/usr/local/bin/python3
+print("Content-Type: text/html")
+print()
+import cgi
+cgi.test()
+```
+
+
+
+```php
+# cgi_env.php
+
+<?php
+print_r($_SERVER);
+?>
+```
