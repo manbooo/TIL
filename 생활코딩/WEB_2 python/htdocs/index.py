@@ -5,13 +5,16 @@ print()
 
 import cgi, os
 
-files = os.listdir('data')
-#print(files)
+def getList():
+    files = os.listdir('data')
+    #print(files)
 
-listStr = ''
+    listStr = ''
 
-for item in files:
-    listStr = listStr + '<li><a href="index.py?id={name}">{name}</a></li>'.format(name = item)
+    for item in files:
+        listStr = listStr + '<li><a href="index.py?id={name}">{name}</a></li>'.format(name = item)
+
+    return listStr
 
 form = cgi.FieldStorage()
 
@@ -55,6 +58,6 @@ print('''
 '''.format(
         title = pageId,
         desc = description,
-        listStr = listStr,
+        listStr = getList(),
         update_link = update_link,
         delete_action = delete_action))
