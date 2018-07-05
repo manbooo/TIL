@@ -17,11 +17,35 @@
 - `<style>` 태그 안에 디자인을 누구한테 지정할 것인지를 명시
 - 효과를 누구에게 줄 것인가
 
-```html
+```css
 a {
 	...
 }
 ```
+
+
+
+- 클래스
+
+```css
+.saw {
+	color:gray;
+}
+```
+
+
+
+- ID
+
+```css
+#active {
+	color:red;
+}
+```
+
+
+
+- https://www.w3schools.com/cssref/css_selectors.asp
 
 
 
