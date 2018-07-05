@@ -3,24 +3,25 @@
 print("Content-Type: text/html") # HTML header
 print()
 
-import cgi, view
+import cgi, view, html_sanitizer
 
+sanitizer = html_sanitizer.Sanitizer()
 form = cgi.FieldStorage()
 
 if 'id' in form:
-    pageId = form["id"].value
+    title = form["id"].value
     description = open('data/' + pageId, 'r').read()
-    description = description.replace('<', '&lt;')
-    description = description.replace('>', '&gt;')
+    title = sanitizer.sanitize(title)
+    description = sanitizer.sanitize(description)
     update_link = '<a href="update.py?id={}">update</a>'.format(pageId)
     delete_action = '''
         <form action="process_delete.py" method="post">
             <input type="hidden" name="pageId" value="{}">
             <input type="submit" value="delete">
         </form>
-    '''.format(pageId)
+    '''.format(title)
 else:
-    pageId = 'Welcome'
+    title = 'Welcome'
     description = 'Hello, web'
     update_link = ''
     delete_action = ''
@@ -47,7 +48,7 @@ print('''
     </body>
 </html>
 '''.format(
-        title = pageId,
+        title = title,
         desc = description,
         listStr = view.getList(),
         update_link = update_link,
