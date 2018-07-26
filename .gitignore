@@ -5,6 +5,7 @@
 .idea
 **/node_modules/*
 **/.firebaserc
+firebase.js
 
 ### ReactNative ###
 # React Native Stack Base
