@@ -95,6 +95,8 @@ function fn_delete_data(key) {
 
     memoRef.remove();
     $("#" + key).remove();
+
+    initMemo();
   }
 }
 
