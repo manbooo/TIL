@@ -11,6 +11,8 @@ auth.onAuthStateChanged(function(user) {
     userInfo = user;
 
     // 메모 리스트 출력
+    get_memo_list();
+
   } else {
     // 인증 실패
     auth.signInWithPopup(authProvider);
@@ -20,7 +22,7 @@ auth.onAuthStateChanged(function(user) {
 
 database = firebase.database();
 
-function getMemoList() {
+function get_memo_list() {
   /*
     {
       memos : {
@@ -62,3 +64,35 @@ function on_child_added(data) {
 
   $(".collection").append(html);
 }
+
+function fn_get_data_one(key) {
+  var memoRef = database.ref('memos/' + userInfo.uid + '/' + key)
+                .once('value').then(function(snapshot) {
+                  $(".textarea").val(snapshot.val().txt);
+                });
+}
+
+function save_data() {
+  var memoRef = database.ref('memos/' + userInfo.uid);
+
+  var txt =  $(".textarea").val();
+
+  // 유효성 검사
+  if(txt == '') {
+    return;
+  } else {
+    // push
+    memoRef.push({
+      txt : txt,
+      createDate : new Date().getTime()
+    });
+
+    $(".textarea").val('');
+  }
+}
+
+$(function() {
+  $(".textarea").blur(function() {
+    save_data();
+  });
+});
