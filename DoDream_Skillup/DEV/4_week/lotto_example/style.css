@@ -1,0 +1,126 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+::-webkit-scrollbar { 
+    display: none; 
+}
+.container{
+    margin: auto;
+    width: 600px;
+    border: 1px solid black;
+    border-radius: 20px;
+    height: fit-content;
+    position: relative;
+    top: 50%;
+    transform: translate(0,-50%);
+}
+section {
+    vertical-align: top;
+    width: fit-content;
+    height: fit-content;
+}
+.lotto-result {
+    border-bottom: 1px solid black;
+    width: 100%;
+    height: 80px;
+    text-align: center;
+    line-height: 80px;
+}
+.lotto-result div{
+    display: inline-block;
+}
+.lotto-wrapper, .button-wrapper {
+    display: inline-block;
+    height: 600px;
+}
+.bonus-num {
+    margin-left: 10px;
+}
+.buttons {
+    margin: auto;
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    top: 50%;
+    transform: translate(0,-50%);
+}
+section button{
+    color: white;
+    display: block;
+    font-size: 12px;
+    margin: auto;
+    width: 120px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+}
+section button:focus {
+    outline: none;
+}
+section button:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px 6px 1px grey;
+}
+#check-winner {
+    background-color: #F29661;
+}
+#buy-lotto {
+    background-color: #86E57F;
+    margin-bottom: 50px;
+}
+#reset-btn {
+    background-color: #F4C559;
+}
+#check-winner {
+    margin-bottom: 50px;
+}
+section.lotto-wrapper, section.button-wrapper {
+    overflow-y: scroll;
+    height: 600px;
+    margin: auto;
+    padding: 15px;
+    box-sizing: border-box;
+}
+section.lotto-wrapper {
+    width: 400px;
+    border-right: 1px solid black;
+}
+section.button-wrapper {
+    width: 194px
+}
+.ball-row {
+    margin: 15px 0px;
+}
+.num-circle {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #FFF;
+    text-align: center;
+    font-weight: bold;
+    line-height: 43px;
+    margin-right: 10px;
+}
+.num-1-10 {
+    background-color: #F4C559;
+}
+.num-11-20 {
+    background-color: #97C5E4;
+}
+.num-21-30 {
+    background-color: #E49284;
+}
+.num-31-40 {
+    background-color: #A5A3DA;
+}
+.num-41-45 {
+    background-color: #84CBA1;
+}
+.result {
+    color: green;
+    font-size: 18px;
+    margin-left: 15px;
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- add Jasmine -->
+    <link rel="shortcut icon" type="image/png" href="lib/jasmine-3.1.0/jasmine_favicon.png">
+    <link rel="stylesheet" href="lib/jasmine-3.1.0/jasmine.css">
+    <script src="lib/jasmine-3.1.0/jasmine.js"></script>
+    <script src="lib/jasmine-3.1.0/jasmine-html.js"></script>
+    <script src="lib/jasmine-3.1.0/boot.js"></script>
+
+    <title>Lotto</title>   
+</head>
+<body>
+    <div class="container">
+        <section class="lotto-result">
+            <div class="win-number"></div>
+            <div class="bonus-number"></div>
+        </section>
+        <section class="lotto-wrapper">
+
+        </section>
+        <section class="button-wrapper">
+            <div class="buttons">
+                <button id="check-winner" onclick="checkWinLotto()">이번 주 당첨 확인</button>
+                <button id="buy-lotto" onclick="addLottoNum()">복권 구매</button>
+                <button id="reset-btn" onclick="reset()">다시 하기</button>
+            </div>
+        </section>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./main.js"></script>
+    <script src="./create_circle.js"></script>
+    <script src="./main.spec.js"></script>
+</body>
+</html>
