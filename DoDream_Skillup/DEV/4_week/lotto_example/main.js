@@ -4,20 +4,14 @@ user_lotto_numbers_list = []
 
 // 1 ~ 45 사이의 랜덤한 숫자 반환
 function getRandomNum(){
-
-    let rand_num = Math.floor(Math.random() * 45 + 1)
     
-    return rand_num
+    return Math.floor(Math.random() * 45 + 1)
 }
 
 // lotto_nums(list) 값들 중 ball_num(number)값과 중복되는 값이 있는지 확인한다.
 // 중복되는 값이 있으면 true 그렇지 않으면 false 반환
 function checkDuplicatedNum(lotto_nums, ball_num){
-    if(lotto_nums.includes(ball_num)) {
-        return true
-    } else {
-        return false
-    }
+    return lotto_nums.includes(ball_num)
 }
 
 // getRandomNum 함수를 통해 lotto_nums(list)에 숫자 6개를 넣어 반환한다.
@@ -29,9 +23,7 @@ function getLottoNums(){
     while(lotto_nums.length < 6) {
         ball_num = getRandomNum()
 
-        if(checkDuplicatedNum(lotto_nums, ball_num)) {
-            continue
-        } else {
+        if(!checkDuplicatedNum(lotto_nums, ball_num)) {
             lotto_nums.push(ball_num)
         }
     }
@@ -41,15 +33,7 @@ function getLottoNums(){
 
 // lotto_nums(list)에서 중복된 값이 있으면 true 그렇지 않으면 false 반환
 function checkDuplicatedNumInList(lotto_nums){
-    for(let i = 0; i < lotto_nums.length - 1; i++) {
-        let temp = lotto_nums.slice(i + 1, lotto_nums.length)
-
-        if(temp.includes(lotto_nums[i])) {
-            return true
-        }
-    }
-
-    return false
+    return lotto_nums.length != (new Set(lotto_nums)).size
 }
 
 // getLottoNums 함수를 통해 winning_numbers에 당첨번호를 위한 숫자 6개를 얻는다.
@@ -66,8 +50,6 @@ function getWinningNumbersAndBonusNumber(){
             break
         }
     }
-
-    return winning_numbers, bonus_number
 }
 
 // 파라미터 a와 b를 더한 값을 리턴한다.
@@ -80,9 +62,7 @@ function getMachedNum(lotto_nums){
     let num = 0
 
     for(let i = 0; i < lotto_nums.length; i++) {
-        if(checkDuplicatedNum(winning_numbers,lotto_nums[i])) {
-            num++
-        }
+        num += checkDuplicatedNum(winning_numbers,lotto_nums[i])
     }
 
     return num
