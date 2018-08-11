@@ -26,6 +26,8 @@
 
 - http://slides.com/minjunkim-1/react-codelab-backends#/7
 
+
+
 ##### 1) Node.js 
 
 - 브라우저가 아닌 환경에서도 js가 돌아갈 수 있게 하는 js 런타임
@@ -91,6 +93,7 @@ node main.js
   - METHOD : HTTP 요청 메소드 (get, post, delete, put ...)
   - PATH : 라우트 경로
   - HANDLER : 실행 될 콜백 함수
+- http://expressjs.com/ko/guide/routing.html
 
 
 
@@ -172,4 +175,125 @@ app.use('/user', user);
 ### 3. Express | 미들웨어(middleware)
 
 - http://slides.com/minjunkim-1/react-codelab-backends#/17
+
+
+
+##### 1) 미들웨어
+
+![middleware](C:\Users\JJu_Park\Desktop\TIL\react\inflearn\Section6. Backend\middleware.PNG)
+
+- 미들웨어 함수는 `요청 오브젝트(req)`, `응답 오브젝트(res)` 그리고 애플리케이션의 요청- 응답 주기 중 그 다음의 미들웨어 함수에 대한 액세스 권한을 갖는 함수
+- Express 자체에 있지 않은 기능을 미들웨어를 통해 구현
+- 이미 다른 사람들이 만든 미들웨어 사용 가능
+- 일종의 plug-in과 비슷
+
+
+
+##### 2) 미들웨어 직접 만들어보기
+
+###### main.js
+
+```react
+var myLogger = function(req, res, next) {
+  console.log(req.url);
+  next();
+}
+
+app.use(myLogger);
+```
+
+- `next()` : 작업 후 다음으로 넘기는 콜백 함수
+- `app.use(myLogger);` : app에서 myLogger 함수를 사용하도록 함
+
+
+
+##### 3) 기존의 미들웨어 사용
+
+##### NPM으로 미들웨어 설치
+
+```bash
+npm install --save morgan body-parser
+```
+
+- `morgan` : 로깅 미들웨어
+- `body-parser` : JSON 형태 데이터 파싱
+
+
+
+###### main.js : morgan 미들웨어 설정
+
+- github 페이지 오픈
+
+```bash
+npm repo morgan
+```
+
+- app에 적용
+
+```react
+var morgan = require('morgan');
+
+app.use(morgan('dev'));
+```
+
+
+
+###### main.js : body-parser 미들웨어 설정
+
+```react
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+```
+
+
+
+###### routes/user.js : JSON 파싱하기
+
+```react
+router.post('/', function(req, res) {
+  console.log(JSON.stringify(req.body, null, 2));
+  res.json({
+    success : true,
+    user : req.body.username
+  });
+});
+```
+
+
+
+###### main.js : static 미들웨어
+
+- 정적파일 제공
+
+```react
+app.use('/', express.static('public'));
+```
+
+
+
+###### public/index.html
+
+```html
+<!DOCTYPE>
+<html>
+<head>
+    <title>HI</title>
+</head>
+<body>
+    Hello WOOOOOOOOOOOOOOOOOOOOOOOOOOOOLD!!!!!
+</body>
+</html>
+```
+
+
+
+##### 4) nodemon
+
+- 서버 재시작의 번거로움을 줄여준다
+
+```bash
+npm install -g nodemon
+nodemon main.js
+```
 
