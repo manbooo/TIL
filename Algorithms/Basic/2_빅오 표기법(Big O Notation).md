@@ -51,19 +51,72 @@ $$
 
 #### 3. $O(n)$
 
+```java
+public void printAllItems(int[] array) {
+    for(int item : array) {
+        System.out.println(item);
+    }
+}
+```
+
+- Other examples
+  - traverse tree
+  - traverse linked list
+- Tip
+
+$$
+nO(n) = O(n) \\
+2 * O(n) = 10 * O(n) = O(n)
+$$
+
 
 
 #### 4. $O(n \log n)$
+
+- Quick Sort, Merge Sort, Heap Sort
+
+![merge sort](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrnxc09dKSuhEJjnspsMTdWLT-i4UFxG2yKmVnupEm190fsbL_)
+
+
+$$
+Denote \, n = 4 \\
+\log 8 = 2 * \log 2^2 = 4
+$$
+
+> **merge sort** just divide the array in two halves at each stage which gives it $lg(n)$ component and the other $N$ component comes from its comparisons that are made at each stage. So combining it becomes nearly $O(n\log n)$
+
+
+
+- Tip
+
+$$
+nO(n \log n) = O(n \log n) \\
+2 * O(n \log n) = 10 * O(n \log n) = O(n \log n)
+$$
 
 
 
 #### 5. $O(n ^ 2)$
 
+```java
+public void printAllPossibleOrderedPairs(int[] array) {
+    for(int firstItem : array) {
+        for(int secondItem : array) {
+            int[] orderedPair = new int[] (firstItem, secondItem);
+            System.out.println(Arrays.toString(orderedPair));
+        }
+    }
+}
+```
 
+- Other examples
+  - Insertion Sort
+  - Bubble Sort
+  - Selection Sort
+- Tip
 
-### 시간 복잡도
-
-
-
-### 공간 복잡도
+$$
+nO(n^2) = O(n^2) \\
+2 * O(n*2) = 10 * O(n^2) = O(n^2)
+$$
 
