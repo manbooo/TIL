@@ -8,7 +8,7 @@ class App extends Component {
     return (
       // <MyName name="리액트" />
 
-      <Counter />>
+      <Counter />
     );
   }
 }
