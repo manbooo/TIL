@@ -67,8 +67,21 @@ class PhoneInfo extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    // 수정 상태가 아니고, info 값이 같다면 리렌더링 안함
+    if(!this.state.editing
+      && !nextState.editing
+      && nextProps.info === this.props.info) {
+        return false;
+      }
+
+      return true;
+  }
+
   
   render() {
+    console.log('render PhoneInfo ' + this.props.info.id);
+
     const divStyle = {
       width: '300px',
       height: '90px',
@@ -77,7 +90,7 @@ class PhoneInfo extends Component {
       borderRadius: '5px',
 
       padding: '10px',
-      margin: '10px'
+      margin: '10px auto'
     };
 
     const titleStyle = {
@@ -128,9 +141,7 @@ class PhoneInfo extends Component {
       width: '200px',
       height: '20px',
 
-      border: '1px gray',
-      borderRadius: '5px',
-      margin: '5px'
+      margin: '2.5px'
     }
 
     const { editing } = this.state;
@@ -170,8 +181,6 @@ class PhoneInfo extends Component {
               </button>
             </div>
           </div>
-
-          <div> {this.state.name} {this.state.phone} </div>
         </div>
       );
     }

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
 class PhoneForm extends Component {
+  static defaultProps = {
+    onCreate: () => console.warn('onCreate not defined'),
+  }
+
   state = {
     name: '',
     phone: ''
@@ -27,13 +31,51 @@ class PhoneForm extends Component {
   }
 
   render() {
+    console.log('render PhoneForm');
+
+    const divStyle = {
+      width: '300px',
+      height: '125px',
+
+      margin: '10px auto'
+    };
+
+    const inputStyle = {
+      width: '250px',
+      height: '26px',
+
+      borderRadius: '5px',
+      margin: '10px auto',
+      padding: '2.5px',
+
+      display: 'block'
+    }
+
+    const btnStyle = {
+      background: '#58ACFA',
+      color: '#ffffff',
+
+      width: '250px',
+      height: '35px',
+
+      border: 'none',
+      borderRadius: '5px',
+      margin: '10px auto',
+      padding: '5px',
+
+      display: 'block',
+
+      fontSize: '15px'
+    }
+
     return (
-      <form onSubmit={this.handleSubmit} >
+      <form onSubmit={this.handleSubmit} style={divStyle}>
         <input
           placeholder="Name"
           value={this.state.name}
           onChange={this.handleChange}
           name="name"
+          style={inputStyle}
         />
 
         <input
@@ -41,9 +83,10 @@ class PhoneForm extends Component {
           value={this.state.phone}
           onChange={this.handleChange}
           name="phone"
+          style={inputStyle}
         />
 
-        <button type="submit">등록</button>
+        <button type="submit" style={btnStyle}>등록</button>
       </form>
     );
   }
