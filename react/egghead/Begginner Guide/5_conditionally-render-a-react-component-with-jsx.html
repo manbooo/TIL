@@ -1,0 +1,58 @@
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@16.3.1/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+
+<script type="text/babel">
+    function Message({message}) {
+        // if (!message) {
+        //     return React.createElement(
+        //         'div',
+        //         null,
+        //         'No Message'
+        //     )
+        // }
+        //
+        // return React.createElement('div', null, message)
+
+        // return message
+        //     ? React.createElement('div', null, message)
+        //     : React.createElement(
+        //         'div',
+        //         null,
+        //         'No Message'
+        //     )
+
+        // return (
+        //     <div>
+        //         {
+        //             message
+        //                 ? React.createElement('div', null, message)
+        //                 : React.createElement(
+        //                 'div',
+        //                 null,
+        //                 'No Message'
+        //                 )
+        //         }
+        //     </div>
+        // )
+
+        return (
+            <div>
+                {
+                    message
+                        ? (<div>{message}</div>)
+                        : (<div>No Message</div>)
+                }
+            </div>
+        )
+
+
+    }
+
+    ReactDOM.render(
+        <Message message={null} />,
+        document.getElementById('root'),
+    )
+</script>

@@ -1,0 +1,71 @@
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@16.3.1/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+
+<script type="text/babel">
+    class App extends React.Component {
+        static allItems = [
+            {id: 'a', value: 'apple'},
+            {id: 'o', value: 'orange'},
+            {id: 'g', value: 'grape'},
+            {id: 'p', value: 'pear'},
+        ]
+
+        state = {items: []}
+
+        addItem = () => {
+            this.setState(({items}) => ({
+                items: [
+                    ...items,
+                    App.allItems.find(
+                        i => !items.includes(i),
+                    ),
+                ],
+            }))
+        }
+
+        removeItem = item => {
+            this.setState(({items}) => ({
+                items: items.filter(i => i !== item),
+            }))
+        }
+
+        render() {
+            const {items} = this.state
+
+            return (
+                <div>
+                    <button
+                        disabled={
+                            items.length >= App.allItems.length
+                        }
+                        onClick={this.addItem}
+                    >
+                        +
+                    </button>
+                    {items.map((i, index) => (
+                        <div>
+                            <button
+                                onClick={() => this.removeItem(i)}
+                            >
+                                -
+                            </button>
+
+                            {i.value}:
+
+                            <input />
+                        </div>
+                    ))}
+                </div>
+            )
+        }
+    }
+
+
+    ReactDOM.render(
+        <App />,
+        document.getElementById('root'),
+    )
+</script>

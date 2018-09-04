@@ -1,0 +1,46 @@
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@16.3.1/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+<script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
+
+<script type="text/babel">
+
+    // function component
+    // function SayHello(props) {
+    //     return (
+    //         <div>
+    //             Hello {props.firstName} {props.lastName || 'Unknown'}!
+    //         </div>
+    //     )
+    // }
+    //
+    // SayHello.propTypes = {
+    //     firstName: PropTypes.string.isRequired,
+    //     lastName: PropTypes.string.isRequired,
+    // }
+
+    // class component
+    class SayHello extends React.Component {
+        static propTypes = {
+            firstName: PropTypes.string.isRequired,
+            lastName: PropTypes.string.isRequired,
+        }
+
+        render() {
+            const {firstName, lastName} = this.props
+
+            return (
+                <div>
+                    Hello {firstName} {lastName}!
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <SayHello fiestName="ooo" lastname="ppp" />,
+        document.getElementById('root')
+    )
+</script>

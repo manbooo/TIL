@@ -1,0 +1,48 @@
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@16.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+
+<script type="text/babel">
+    const rootElement = document.getElementById('root')
+
+    // const message = props => <div>{props.msg}</div>
+    //
+    // const element = (
+    //     <div className="container">
+    //         {message({msg: 'Hello World'})}
+    //         {message({msg: 'Goodbye World'})}
+    //     </div>
+    // )
+
+    // const message = props => <div>{props.msg}</div>
+    //
+    // const element = (
+    //     <div className="container">
+    //         {React.createElement(message, {msg: 'Hello World'})}
+    //         {React.createElement(message, {msg: 'Goodbye World'})}
+    //     </div>
+    // )
+
+    // const Message = (props) => <div>{props.msg}</div>
+    //
+    // const element = (
+    //   <div className="container">
+    //     <Message msg="Hello World" />
+    //     <Message msg="Goodbye World" />
+    //   </div>
+    // )
+
+    // arrow function
+    const Message = props => <div>{props.children}</div>
+
+    const element = (
+        <div className="container">
+            <Message>Hello World </Message>
+            <Message>Goodbye World </Message>
+        </div>
+    )
+
+    ReactDOM.render(element, rootElement)
+</script>

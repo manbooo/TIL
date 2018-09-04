@@ -1,0 +1,38 @@
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@16.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+
+<script type="text/babel">
+
+    const rootElement = document.getElementById('root')
+
+    // const element = React.createElement('div', {
+    //     className: 'container',
+    //     children: ['Hello World', 'Goodbye World']ß
+    // })
+
+    // JSX is smillar HTML
+    // JSX syntax, it isn't JS syntax
+    // need to be transfed React.createElement call => webpack or babel
+
+    // const content = 'Hello World'
+    // const myClassName = 'container'
+    const props = {
+        className: 'container',
+        children: 'Hello World',
+    }
+
+    // HTML class => JSX className
+    // {} => Javascript code in JSX
+    // const element = <div className={myClassName + "__hi-there"}>{content}</div>
+
+    // props is like HTML attribute
+
+    const element = (
+        <div {...props}>Hi there</div>
+    )
+
+    ReactDOM.render(element, rootElement)
+</script>
