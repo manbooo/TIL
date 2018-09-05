@@ -13,7 +13,7 @@ class App extends Component {
 
           <div className="Todo-App">
               <form>
-                  <input type="text" />
+                  <input type="text" className="input-text" />
               </form>
 
               <div className="Todo-List">
@@ -30,7 +30,6 @@ class App extends Component {
                           <input type="checkbox" /> Use state to Render
                       </li>
                   </ul>
-
               </div>
           </div>
       </div>
