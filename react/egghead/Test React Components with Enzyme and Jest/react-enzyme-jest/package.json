@@ -3,15 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "package.json": "^2.0.1",
     "react": "^16.4.2",
-    "react-dom": "latest",
+    "react-dom": "^16.4.2",
     "react-scripts": "1.1.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "jest",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "precommit": "lint-staged"
   },
   "devDependencies": {
     "enzyme": "^3.6.0",
