@@ -24,6 +24,58 @@ exports[`<App /> Mount rendering matches the snapshot 1`] = `
         Everyone is Welcome!
       </h3>
     </header>
+    <Form>
+      <form
+        data-testid="addUserForm"
+        onSubmit={[Function]}
+      >
+        <h2>
+          Request Information
+        </h2>
+        <input
+          data-testid="name"
+          onChange={[Function]}
+          placeholder="Name"
+          type="text"
+          value=""
+        />
+        <input
+          data-testid="email"
+          onChange={[Function]}
+          placeholder="Email"
+          type="text"
+          value=""
+        />
+        <input
+          data-testid="number"
+          onChange={[Function]}
+          placeholder="Number"
+          type="text"
+          value=""
+        />
+        <div>
+          <input
+            checked={true}
+            data-testid="checked"
+            onChange={[Function]}
+            onClick={[Function]}
+            type="checkbox"
+          />
+          <p
+            className="promotions"
+            data-testid="promotionsP"
+          >
+            Receive Promotions
+          </p>
+        </div>
+        <button
+          data-testid="submitButton"
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+    </Form>
     <p
       className="App-intro"
     >
@@ -49,6 +101,7 @@ exports[`<App /> Mount rendering matches the snapshot 1`] = `
     >
       componentDidMount
     </p>
+    *
   </div>
 </App>
 `;
@@ -76,6 +129,7 @@ exports[`<App /> Shallow rendering matches the snapshot 1`] = `
       Everyone is Welcome!
     </h3>
   </header>
+  <Form />
   <p
     className="App-intro"
   >
@@ -101,5 +155,6 @@ exports[`<App /> Shallow rendering matches the snapshot 1`] = `
   >
     componentDidMount
   </p>
+  *
 </div>
 `;
