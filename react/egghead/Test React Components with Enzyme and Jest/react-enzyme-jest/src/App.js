@@ -26,18 +26,24 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <h1 className="App-title">Welcome to React</h1>
-                <h3 className={this.state.mainColor}>Everyone is Welcome!</h3>
-            </header>
 
-            <p className="App-intro">Hello World</p>
-            <p className='button-state'>{this.state.on ? 'Yes!' : 'No!'}</p>
-            <button onClick={() => this.setState({on: true})}>Click</button>
-            <h2>{this.state.input}</h2>
-            <input onChange={(e) => this.setState({input: e.currentTarget.value})} type='text' />
-                <p className='lifeCycle'>{this.state.lifeCycle}</p>*
+                <header className="App-header">
+                    <img src={logo} className="App-logo" alt="logo" />
+                    <h1 className="App-title">Welcome to React</h1>
+                    <h3 className={this.state.mainColor}>Everyone is Welcome!</h3>
+                </header>
+
+                <p className="App-intro">Hello World</p>
+
+                <p className='button-state'>{this.state.on ? 'Yes!' : 'No!'}</p>
+
+                <button onClick={() => this.setState({on: true})}>Click</button>
+
+                <h2>{this.state.input}</h2>
+
+                <input onChange={(e) => this.setState({input: e.currentTarget.value})} type='text' />
+
+                <p className='lifeCycle'>{this.state.lifeCycle}</p>
             </div>
         )
     }

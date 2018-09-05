@@ -45,11 +45,32 @@ describe('<App /> Shallow rendering', () => {
     it('updates className with new State', () => {
         expect(wrapper.find('.blue').length).toBe(1)
         expect(wrapper.find('.red').length).toBe(0)
-        
+
         wrapper.setState({ mainColor: 'red' })
         expect(wrapper.find('.blue').length).toBe(0)
         expect(wrapper.find('.red').length).toBe(1)
     })
+
+    // Lifecycle
+    it('calls componentDidMount, updates p tag text', () => {
+        jest.spyOn(App.prototype, 'componentDidMount')
+
+        const wrapper = shallow(<App />)
+
+        expect(App.prototype.componentDidMount.mock.calls.length).toBe(1)
+        expect(wrapper.find('.lifeCycle').text()).toBe('componentDidMount')
+    })
+
+    it('setProps calls componentWillReceiveProps', () => {
+        jest.spyOn(App.prototype, 'componentWillReceiveProps')
+
+        const wrapper = shallow(<App />)
+
+        expect(App.prototype.componentWillReceiveProps.mock.calls.length).toBe(1)
+        expect(wrapper.find('.lifeCycle').text()).toBe('componentWillReceiveProps')
+    })
+
+
 })
 
 // Full DOM rendering : Lifecycle
