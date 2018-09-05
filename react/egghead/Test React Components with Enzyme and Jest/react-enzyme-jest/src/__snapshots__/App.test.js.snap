@@ -18,25 +18,38 @@ exports[`<App /> Mount rendering matches the snapshot 1`] = `
       >
         Welcome to React
       </h1>
+      <h3
+        className="blue"
+      >
+        Everyone is Welcome!
+      </h3>
     </header>
     <p
       className="App-intro"
     >
-      Hello react!
+      Hello World
     </p>
-    <ul
-      className="tyler"
+    <p
+      className="button-state"
     >
-      <li>
-        test1
-      </li>
-      <li>
-        test2
-      </li>
-      <li>
-        test3
-      </li>
-    </ul>
+      No!
+    </p>
+    <button
+      onClick={[Function]}
+    >
+      Click
+    </button>
+    <h2 />
+    <input
+      onChange={[Function]}
+      type="text"
+    />
+    <p
+      className="lifeCycle"
+    >
+      componentDidMount
+    </p>
+    *
   </div>
 </App>
 `;
@@ -58,24 +71,37 @@ exports[`<App /> Shallow rendering matches the snapshot 1`] = `
     >
       Welcome to React
     </h1>
+    <h3
+      className="blue"
+    >
+      Everyone is Welcome!
+    </h3>
   </header>
   <p
     className="App-intro"
   >
-    Hello react!
+    Hello World
   </p>
-  <ul
-    className="tyler"
+  <p
+    className="button-state"
   >
-    <li>
-      test1
-    </li>
-    <li>
-      test2
-    </li>
-    <li>
-      test3
-    </li>
-  </ul>
+    No!
+  </p>
+  <button
+    onClick={[Function]}
+  >
+    Click
+  </button>
+  <h2 />
+  <input
+    onChange={[Function]}
+    type="text"
+  />
+  <p
+    className="lifeCycle"
+  >
+    componentDidMount
+  </p>
+  *
 </div>
 `;

@@ -11,30 +11,34 @@ configure({ adapter: new Adapter() })
 describe('<App /> Shallow rendering', () => {
     const wrapper = shallow(<App />)
 
-    it('should render App', () => {
-        console.log(wrapper.debug())
-    })
-
-    it('should contain 1 p', () => {
-        expect(wrapper.find('p').length).toBe(1)
-    })
-
-    it('should contain class name is App-intro', () => {
-        expect(wrapper.find('.App-intro').exists()).toBe(true)
-    })
-
-    it('should have 3 children in ul tag ', () => {
-        expect(wrapper.find('ul').children().length).toBe(3)
-    })
-
-    it('should have ul class name is tyler ', () => {
-        expect(wrapper.find('ul').hasClass('tyler')).toBe(true)
+    it('h1 contains correct text', () => {
+        const wrapper = shallow(<App />)
+        expect(wrapper.find('h1').text()).toBe('Welcome to React')
     })
 
     // Snapshot
     it('matches the snapshot', () => {
         const tree = shallow(<App />)
         expect(toJson(tree)).toMatchSnapshot()
+    })
+
+    // Event Handler test
+    it('on button click changes p text', () => {
+        const button = wrapper.find('button')
+
+        expect(wrapper.find('.button-state').text()).toBe('No!')
+
+        button.simulate('click')
+        expect(wrapper.find('.button-state').text()).toBe('Yes!')
+    })
+
+    it('on input change, title changes text', () => {
+        const input = wrapper.find('input')
+
+        expect(wrapper.find('h2').text()).toBe('')
+
+        input.simulate('change', {currentTarget: {value: 'Tyler'}})
+        expect(wrapper.find('h2').text()).toBe('Tyler')
     })
 })
 
