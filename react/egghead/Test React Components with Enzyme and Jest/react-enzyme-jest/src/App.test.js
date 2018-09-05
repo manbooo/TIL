@@ -40,6 +40,16 @@ describe('<App /> Shallow rendering', () => {
         input.simulate('change', {currentTarget: {value: 'Tyler'}})
         expect(wrapper.find('h2').text()).toBe('Tyler')
     })
+
+    // Set state
+    it('updates className with new State', () => {
+        expect(wrapper.find('.blue').length).toBe(1)
+        expect(wrapper.find('.red').length).toBe(0)
+        
+        wrapper.setState({ mainColor: 'red' })
+        expect(wrapper.find('.blue').length).toBe(0)
+        expect(wrapper.find('.red').length).toBe(1)
+    })
 })
 
 // Full DOM rendering : Lifecycle
