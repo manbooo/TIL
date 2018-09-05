@@ -1,6 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<App /> matches the snapshot 1`] = `
+exports[`<App /> Mount rendering matches the snapshot 1`] = `
+<App>
+  <div
+    className="App"
+  >
+    <header
+      className="App-header"
+    >
+      <img
+        alt="logo"
+        className="App-logo"
+        src="logo.svg"
+      />
+      <h1
+        className="App-title"
+      >
+        Welcome to React
+      </h1>
+    </header>
+    <p
+      className="App-intro"
+    >
+      Hello react!
+    </p>
+    <ul
+      className="tyler"
+    >
+      <li>
+        test1
+      </li>
+      <li>
+        test2
+      </li>
+      <li>
+        test3
+      </li>
+    </ul>
+  </div>
+</App>
+`;
+
+exports[`<App /> Shallow rendering matches the snapshot 1`] = `
 <div
   className="App"
 >

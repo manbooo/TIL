@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App, {Link} from './App';
-import { configure, shallow } from 'enzyme'
+import { configure, shallow, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import toJson from 'enzyme-to-json'
 
 configure({ adapter: new Adapter() })
 
 // Shallow rendering
-describe('<App />', () => {
+describe('<App /> Shallow rendering', () => {
     const wrapper = shallow(<App />)
 
     it('should render App', () => {
@@ -38,6 +38,24 @@ describe('<App />', () => {
     })
 })
 
+// Full DOM rendering : Lifecycle
+describe('<App /> Mount rendering', () => {
+    const wrapper = mount(<App />)
+
+    it('should contain class name is App-intro', () => {
+        expect(wrapper.find('.App-intro').exists()).toBe(true)
+        wrapper.unmount()
+    })
+
+    // Snapshot
+    it('matches the snapshot', () => {
+        const tree = mount(<App />)
+        expect(toJson(tree)).toMatchSnapshot()
+        tree.unmount()
+    })
+})
+
+// Test props
 describe('<Link /', () => {
     // using instance
     it('link component accepts address prop', () => {
