@@ -1,4 +1,11 @@
 .App {
+    width: 400px;
+    height: 700px;
+
+    margin: auto;
+
+    border: 1px solid rgba(128, 128, 128, 0.53);
+
     text-align: center;
 }
 
@@ -25,4 +32,36 @@
 @keyframes App-logo-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
+}
+
+.Todo-App {
+    padding: 25px 50px 10px 50px;
+
+    overflow-y: hidden;
+}
+
+.input-text {
+    width: 300px;
+    height: 35px;
+
+    padding: 0px;
+
+    border: 1px solid rgba(128, 128, 128, 0.53);
+    border-radius: 3px;
+}
+
+.Todo-List {
+    align-items: left;
+}
+
+ul {
+    width: 300px;
+
+    padding: 0px;
+
+    text-align: left;
+}
+
+li {
+    list-style: none;
 }
