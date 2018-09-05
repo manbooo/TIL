@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import TodoForm from './components/TodoForm'
+import TodoList from './components/TodoList'
+
 class App extends Component {
   render() {
     return (
@@ -12,25 +15,10 @@ class App extends Component {
         </div>
 
           <div className="Todo-App">
-              <form>
-                  <input type="text" className="input-text" />
-              </form>
+              <TodoForm />
 
-              <div className="Todo-List">
-                  <ul>
-                      <li>
-                        <input type="checkbox" /> Create Static UI
-                      </li>
+              <TodoList todos={this.props.todos}/>
 
-                      <li>
-                          <input type="checkbox" /> Create Initial State
-                      </li>
-
-                      <li>
-                          <input type="checkbox" /> Use state to Render
-                      </li>
-                  </ul>
-              </div>
           </div>
       </div>
     );
