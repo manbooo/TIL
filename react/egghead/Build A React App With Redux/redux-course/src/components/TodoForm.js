@@ -19,7 +19,7 @@ import {updateCurrent} from "../reducers/todo";
         <form>
             <input type="text" className="input-text"
                    onChange={handleInputChange}
-                 value={currentTodo}
+                   value={currentTodo}
             />
         </form>
     )
