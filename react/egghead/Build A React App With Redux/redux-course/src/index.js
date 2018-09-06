@@ -6,7 +6,9 @@ import registerServiceWorker from './registerServiceWorker';
 
 import store from './store'
 
-const todoChangeHandler = (value) => store.dispatch({type: 'CURRENT_UPDATE', payload: value})
+import {updateCurrent} from "./reducers/todo";
+
+const todoChangeHandler = (value) => store.dispatch(updateCurrent(value))
 
 const render = () => {
     const state = store.getState()
