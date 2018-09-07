@@ -1,0 +1,12 @@
+.Memo {
+    width: 100%;
+    background-color: white;
+}
+
+.Memo-card {
+    margin-top: 10px;
+}
+
+.event-icon {
+    margin-right: 5px;
+}

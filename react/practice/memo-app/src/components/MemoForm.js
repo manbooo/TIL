@@ -17,6 +17,7 @@ class MemoForm extends Component {
                 this.props.onCreate(values)
             }
         })
+
     }
 
     render() {
@@ -28,21 +29,21 @@ class MemoForm extends Component {
                 <Form onSubmit={this._handleSubmit} className="memo-form">
                     <FormItem>
                         {getFieldDecorator('title', {
-                            rules: [{ required: true, message: 'Please input title' }],
+                            rules: [{ required: true, message: 'Please input title', initialValue: '' }],
                         })(
                             <Input placeholder="Title" />
                         )}
                     </FormItem>
                     <FormItem>
                         {getFieldDecorator('content', {
-                            rules: [{ required: true, message: 'Please input content' }],
+                            rules: [{ required: true, message: 'Please input content', initialValue: '' }],
                         })(
-                            <TextArea row={4} placeholder="Password" />
+                            <TextArea row={5} placeholder="Content" />
                         )}
                     </FormItem>
                     <FormItem>
                         <Button type="primary" htmlType="submit" className="memo-form-button">
-                            ADD MEMO
+                            SUBMIT
                         </Button>
                     </FormItem>
                 </Form>
@@ -52,6 +53,8 @@ class MemoForm extends Component {
     }
 }
 
-const WrapperMemoForm= Form.create()(MemoForm)
+const WrapperMemoForm= Form.create({
+    mapPropsToFields(props) { return {...props.memo}}
+})(MemoForm)
 
 export default WrapperMemoForm
