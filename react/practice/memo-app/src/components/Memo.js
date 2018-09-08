@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import MemoForm from './MemoForm'
 import MemoCard from './MemoCard'
 
+import {connect} from 'react-redux'
+
 import './Memo.css'
+import {addMemo, removeMemo} from "../reducers/memo";
 
 class Memo extends Component {
     id = 0
@@ -19,10 +22,10 @@ class Memo extends Component {
     _handleCreate = (data) => {
         // console.log(data)
 
-        const { memo } = this.state
+        const added = {id: ++this.id, ...data}
 
         this.setState({
-            memo: memo.concat({id: ++this.id, ...data})
+            memo: [...this.state.memo, added]
         })
 
         // console.log(this.state.memo)
@@ -33,10 +36,8 @@ class Memo extends Component {
     }
 
     _handleRemove = (id) => {
-        const { memo } = this.state
-
         this.setState({
-            memo: memo.filter(m => m.id !== id)
+            memo: this.state.memo.filter(m => m.id !== id)
         })
     }
 
@@ -65,7 +66,7 @@ function MemoList({memos, onUpdate, onRemove}) {
                     <MemoCard
                         key={memo.id} memo={memo}
                         onUpdate={onUpdate}
-                        onRemove={onRemove}ß
+                        onRemove={onRemove}
                     />)
                 : <p>Nothing!!</p>
             }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import { Form, Input, Button } from 'antd'
+import {addMemo} from "../reducers/memo";
 
 const FormItem = Form.Item
 const TextArea = Input.TextArea

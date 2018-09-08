@@ -69,15 +69,14 @@ class MemoCard extends Component {
     }
 
     render() {
-        const { memo } = this.props
 
         return (
             <div className="Memo-card">
 
                 {
                     this.state.edit ?
-                        this._renderMemoForm(memo)
-                        : this._renderMemoCard(memo)
+                        this._renderMemoForm(this.props.memo)
+                        : this._renderMemoCard(this.props.memo)
                 }
             </div>
         )
