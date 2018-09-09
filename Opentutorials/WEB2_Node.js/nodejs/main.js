@@ -2,6 +2,38 @@ var http = require('http')
 var fs = require('fs')
 var url = require('url')
 
+_renderTemplate = (title, data, list) => {
+    const template = `
+        <!doctype html>
+        <html>
+        <head>
+          <title>WEB1 - ${title}</title>
+          <meta charset="utf-8">
+        </head>
+        <body>
+          <h1><a href="/">WEB</a></h1>
+          ${list}
+          <h2>${title}</h2>
+          <p>${data}</p>
+        </body>
+        </html>
+        `
+
+    return (template)
+}
+
+_renderList = (fileList) => {
+    var list = '<ul>'
+
+    fileList.forEach(file =>
+        list = list + `<li><a href="/?id=${file}">${file}</a></li>`
+    )
+
+    list = list + '</ul>'
+
+    return list
+}
+
 var app = http.createServer(function(request,response){
     var _url = request.url
     // console.log(_url)
@@ -12,69 +44,25 @@ var app = http.createServer(function(request,response){
     const pathname = url.parse(_url, true).pathname
     // console.log(url.parse(_url, true).pathname)
 
+
     if (pathname === '/') {
         if (queryData.id === undefined) {
             fs.readdir('./data', (err, fileList) => {
                 const title = 'Welcome'
                 const data = 'Hello Node.js'
-
-                var list = '<ul>'
-
-                fileList.forEach(file =>
-                    list = list + `<li><a href="/?id=${file}">${file}</a></li>`
-                )
-
-                list = list + '</ul>'
-
-                var template = `
-                <!doctype html>
-                <html>
-                <head>
-                  <title>WEB1 - ${title}</title>
-                  <meta charset="utf-8">
-                </head>
-                <body>
-                  <h1><a href="/">WEB</a></h1>
-                  ${list}
-                  <h2>${title}</h2>
-                  <p>${data}</p>
-                </body>
-                </html>
-                `
+                const list = _renderList(fileList)
 
                 response.writeHead(200)
-                response.end(template)
+                response.end(_renderTemplate(title, data, list))
             })
         } else {
             fs.readdir('./data', (err, fileList) => {
                 const title = queryData.id
-
-                var list = '<ul>'
-
-                fileList.forEach(file =>
-                    list = list + `<li><a href="/?id=${file}">${file}</a></li>`
-                )
-
+                const list = _renderList(fileList)
 
                 fs.readFile(`data/${queryData.id}`, 'utf8', (err, data) => {
-                    var template = `
-                    <!doctype html>
-                    <html>
-                    <head>
-                      <title>WEB1 - ${title}</title>
-                      <meta charset="utf-8">
-                    </head>
-                    <body>
-                      <h1><a href="/">WEB</a></h1>
-                      ${list}
-                      <h2>${title}</h2>
-                      <p>${data}</p>
-                    </body>
-                    </html>
-                    `
-
                     response.writeHead(200)
-                    response.end(template)
+                    response.end(_renderTemplate(title, data, list))
                 })
             })
         }
