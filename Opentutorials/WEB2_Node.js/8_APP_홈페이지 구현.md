@@ -1,3 +1,12 @@
+## 홈페이지 구현
+
+- `pathname`으로는 홈과 다른 페이지의 구별 불가능
+
+
+
+##### main.js
+
+```js
 var http = require('http')
 var fs = require('fs')
 var url = require('url')
@@ -80,3 +89,5 @@ var app = http.createServer(function(request,response){
 })
 
 app.listen(3000)
+```
+
