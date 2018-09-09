@@ -1,3 +1,34 @@
+## Not found 오류 구현
+
+##### main.js
+
+```
+var http = require('http')
+var fs = require('fs')
+var url = require('url')
+var app = http.createServer(function(request,response){
+    var _url = request.url
+    console.log(_url)
+
+    var queryData = url.parse(_url, true).query
+
+    console.log(queryData.id)
+
+    var title = queryData.id
+
+    console.log(url.parse(_url, true))
+
+...
+```
+
+- `console.log(url.parse(_url, true))`
+  - 주어진 URL의 정보
+  - `path` : query string이 포함
+  - `pathname` : query string을 제외한 경로
+
+
+
+```js
 var http = require('http')
 var fs = require('fs')
 var url = require('url')
@@ -50,3 +81,5 @@ var app = http.createServer(function(request,response){
 })
 
 app.listen(3000)
+```
+
