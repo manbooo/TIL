@@ -1,16 +1,21 @@
+## 글 목록 출력하기
+
+##### main.js
+
+```ja
 var http = require('http')
 var fs = require('fs')
 var url = require('url')
 
 var app = http.createServer(function(request,response){
     var _url = request.url
-    // console.log(_url)
+    console.log(_url)
 
     var queryData = url.parse(_url, true).query
-    // console.log(queryData.id)
+    console.log(queryData.id)
 
     const pathname = url.parse(_url, true).pathname
-    // console.log(url.parse(_url, true).pathname)
+    console.log(url.parse(_url, true).pathname)
 
     if (pathname === '/') {
         if (queryData.id === undefined) {
@@ -41,7 +46,6 @@ var app = http.createServer(function(request,response){
                 </body>
                 </html>
                 `
-
                 response.writeHead(200)
                 response.end(template)
             })
@@ -72,7 +76,6 @@ var app = http.createServer(function(request,response){
                     </body>
                     </html>
                     `
-
                     response.writeHead(200)
                     response.end(template)
                 })
@@ -82,6 +85,11 @@ var app = http.createServer(function(request,response){
         response.writeHead(404)
         response.end('Not Found!')
     }
+
+
+
 })
 
 app.listen(3000)
+```
+
