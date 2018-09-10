@@ -1,5 +1,5 @@
 _a = () => {
-  console.log('_a : A')
+    console.log('_a : A')
 }
 
 _a()
