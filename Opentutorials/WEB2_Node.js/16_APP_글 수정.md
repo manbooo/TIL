@@ -1,3 +1,8 @@
+## 글 수정
+
+### 수정 링크 생성
+
+```js
 var http = require('http')
 var fs = require('fs')
 var url = require('url')
@@ -83,7 +88,7 @@ var app = http.createServer(function(request,response){
         fs.readdir('./data', (err, fileList) => {
             const title = 'Web - create'
             const list = _renderList(fileList)
-            const template = `
+            const data = `
                 <form action="http://localhost:3000/create_process" method="post">
                     <p>
                        <input type="text" name="title" placeholder="title"/>
@@ -100,65 +105,12 @@ var app = http.createServer(function(request,response){
             response.writeHead(200)
             response.end(_renderHTML(
                 title,
-                template,
+                data,
                 list,
                 ''
             ))
         })
-    } else if (pathname === '/create_process') {
-        var body = ''
-
-        request.on('data', (data) => {
-            body = body + data
-        })
-
-        request.on('end' , () => {
-            const post = qs.parse(body)
-
-            // console.log(post)
-
-            const title = post.title
-            const description = post.description
-
-            fs.writeFile(`./data/${title}`, description, 'utf8', (err) => {
-                if (err) throw err
-
-                console.log('The file has been saved!')
-
-                response.writeHead(302, {
-                    Location: `/?id=${title}`
-                })
-                response.end('success')
-            })
-        })
-    } else if (pathname === '/update') {
-        fs.readdir('./data', (err, fileList) => {
-            fs.readFile(`data/${queryData.id}`, 'utf8', (err, data) => {
-                const title = `Web - update - ${queryData.id}`
-                const list = _renderList(fileList)
-                const template = `
-                <form action="http://localhost:3000/update_process" method="post">
-                    <p>
-                       <input type="text" name="title" placeholder="title" value=${queryData.id} />
-                    </p>
-                    <p>
-                        <textarea name="description" placeholder="description">${data}</textarea>
-                    </p>
-                    <p>
-                        <button type="submit">Submit</button>
-                    </p>
-                </form>
-            `
-                response.writeHead(200)
-                response.end(_renderHTML(
-                    title,
-                    template,
-                    list,
-                    ``
-                ))
-            })
-        })
-    } else if (pathname === '/update_process') {
+    } else if(pathname === '/create_process') {
         var body = ''
 
         request.on('data', (data) => {
@@ -191,3 +143,72 @@ var app = http.createServer(function(request,response){
 })
 
 app.listen(3000)
+```
+
+
+
+### 수정할 정보 전송 및 저장
+
+```js
+...
+
+else if (pathname === '/update') {
+    fs.readdir('./data', (err, fileList) => {
+        fs.readFile(`data/${queryData.id}`, 'utf8', (err, data) => {
+            const title = `Web - update - ${queryData.id}`
+            const list = _renderList(fileList)
+            const template = `
+<form action="http://localhost:3000/update_process" method="post">
+<p>
+<input type="text" name="title" placeholder="title" value=${queryData.id} />
+</p>
+<p>
+<textarea name="description" placeholder="description">${data}</textarea>
+</p>
+<p>
+<button type="submit">Submit</button>
+</p>
+</form>
+`
+            response.writeHead(200)
+            response.end(_renderHTML(
+                title,
+                template,
+                list,
+                ``
+            ))
+        })
+    })
+} else if (pathname === '/update_process') {
+    var body = ''
+
+    request.on('data', (data) => {
+        body = body + data
+    })
+
+    request.on('end' , () => {
+        const post = qs.parse(body)
+
+        // console.log(post)
+
+        const title = post.title
+        const description = post.description
+
+        fs.writeFile(`./data/${title}`, description, 'utf8', (err) => {
+            if (err) throw err
+
+            console.log('The file has been saved!')
+
+            response.writeHead(302, {
+                Location: `/?id=${title}`
+            })
+            response.end('success')
+        })
+    })
+}
+
+...
+```
+
+
+
