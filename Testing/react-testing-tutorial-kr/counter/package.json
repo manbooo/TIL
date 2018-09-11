@@ -10,11 +10,13 @@
   },
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js",
-    "test:unit": "mocha --require babel-core/register --require ./test/helpers.js --require ./test/dom.js --require ignore-styles 'src/**/*.spec.js'",
+    "test:unit": "mocha --require babel-core/register --require ./test/dom.js --require ignore-styles 'src/**/*.spec.js'",
     "test:unit:watch": "npm run test:unit -- --watch"
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
     "ignore-styles": "^5.0.1",
     "jsdom": "^12.0.0",
     "mocha": "^5.2.0"
