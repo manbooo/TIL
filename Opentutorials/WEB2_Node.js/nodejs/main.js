@@ -2,7 +2,7 @@ var http = require('http')
 var fs = require('fs')
 var url = require('url')
 
-_renderTemplate = (title, data, list) => {
+_renderHTML = (title, data, list) => {
     const template = `
         <!doctype html>
         <html>
@@ -13,6 +13,8 @@ _renderTemplate = (title, data, list) => {
         <body>
           <h1><a href="/">WEB</a></h1>
           ${list}
+          
+          <a href="/create">Create</a>
           <h2>${title}</h2>
           <p>${data}</p>
         </body>
@@ -53,7 +55,7 @@ var app = http.createServer(function(request,response){
                 const list = _renderList(fileList)
 
                 response.writeHead(200)
-                response.end(_renderTemplate(title, data, list))
+                response.end(_renderHTML(title, data, list))
             })
         } else {
             fs.readdir('./data', (err, fileList) => {
@@ -62,11 +64,33 @@ var app = http.createServer(function(request,response){
 
                 fs.readFile(`data/${queryData.id}`, 'utf8', (err, data) => {
                     response.writeHead(200)
-                    response.end(_renderTemplate(title, data, list))
+                    response.end(_renderHTML(title, data, list))
                 })
             })
         }
-    } else {
+    } else if (pathname === '/create') {
+        fs.readdir('./data', (err, fileList) => {
+            const title = 'Web - create'
+            const list = _renderList(fileList)
+            const data = `
+                <form action="http://localhost:3000/process_create" method="post">
+                    <p>
+                       <input type="text" name="title" placeholder="title"/>
+                    </p>
+                    <p>
+                        <textarea name="description" placeholder="description"></textarea>
+                    </p>
+                    <p>
+                        <button type="submit">Submit</button>
+                    </p>
+                </form>
+            `
+
+            response.writeHead(200)
+            response.end(_renderHTML(title, data, list))
+        })
+    }
+    else {
         response.writeHead(404)
         response.end('Not Found!')
     }
