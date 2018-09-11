@@ -1,11 +1,11 @@
 import App, { doIncrement, doDecrement, Counter } from './App'
-
 import React from 'react';
-import ReactDOM from 'react-dom';
+import axios from 'axios'
 
 import { expect } from 'chai'
 import { mount, render, shallow,  configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+import sinon from 'sinon'
 
 configure({ adapter: new Adapter() })
 
@@ -30,6 +30,34 @@ describe('Local State', () => {
 })
 
 describe('App Component', () => {
+    const result = [3, 5, 9]
+    const promise = Promise.resolve(result)
+
+    before(() => {
+        sinon.stub(axios, 'get').withArgs('http://mydomain/counter').returns(promise)
+    })
+
+    after(() => {
+        axios.get.restore()
+    })
+
+    it('componentDidMount를 호출한다', () => {
+        sinon.spy(App.prototype, 'componentDidMount')
+
+        const wrapper = mount(<App />)
+        expect(App.prototype.componentDidMount().calledOnce).to.equal(true)
+    })
+
+    it('비동기로 카운터를 가져온다', () => {
+        const wrapper = shallow(<App />)
+
+        expect(wrapper.state().asyncCounters).to.equal(null)
+
+        promise.then(() => {
+            expect(wrapper.state().asyncCounters).to.equal(result)
+        })
+    })
+
     it('Counter 래퍼를 그린다', () => {
         const wrapper = shallow(<App />)
 

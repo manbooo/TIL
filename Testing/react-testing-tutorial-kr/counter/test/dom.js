@@ -9,7 +9,6 @@ function copyProps(src, target) {
             ...result,
             [prop]: Object.getOwnPropertyDescriptor(src, prop),
         }), {})
-
     Object.defineProperties(target, props)
 }
 
@@ -18,3 +17,5 @@ global.document = window.document
 global.navigator = {
     userAgent: 'node.js',
 }
+
+copyProps(window, global)
