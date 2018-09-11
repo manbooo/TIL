@@ -1,6 +1,7 @@
 var http = require('http')
 var fs = require('fs')
 var url = require('url')
+var qs = require('querystring')
 
 _renderHTML = (title, data, list) => {
     const template = `
@@ -73,7 +74,7 @@ var app = http.createServer(function(request,response){
             const title = 'Web - create'
             const list = _renderList(fileList)
             const data = `
-                <form action="http://localhost:3000/process_create" method="post">
+                <form action="http://localhost:3000/create_process" method="post">
                     <p>
                        <input type="text" name="title" placeholder="title"/>
                     </p>
@@ -89,8 +90,25 @@ var app = http.createServer(function(request,response){
             response.writeHead(200)
             response.end(_renderHTML(title, data, list))
         })
-    }
-    else {
+    } else if(pathname === '/create_process') {
+        var body = ''
+
+        request.on('data', (data) => {
+            body = body + data
+        })
+
+        request.on('end' , () => {
+            const post = qs.parse(body)
+
+            // console.log(post)
+
+            const title = post.title
+            const data = post.description
+        })
+
+        response.writeHead(200)
+        response.end('success')
+    } else {
         response.writeHead(404)
         response.end('Not Found!')
     }
