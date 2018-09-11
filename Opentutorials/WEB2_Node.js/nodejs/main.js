@@ -103,11 +103,19 @@ var app = http.createServer(function(request,response){
             // console.log(post)
 
             const title = post.title
-            const data = post.description
-        })
+            const description = post.description
 
-        response.writeHead(200)
-        response.end('success')
+            fs.writeFile(`./data/${title}`, description, 'utf8', (err) => {
+                if (err) throw err
+
+                console.log('The file has been saved!')
+
+                response.writeHead(302, {
+                    Location: `/?id=${title}`
+                })
+                response.end('success')
+            })
+        })
     } else {
         response.writeHead(404)
         response.end('Not Found!')
