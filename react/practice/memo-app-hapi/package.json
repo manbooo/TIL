@@ -4,9 +4,15 @@
   "private": true,
   "dependencies": {
     "antd": "^3.9.2",
+    "hapi": "^17.5.4",
+    "inert": "^5.1.0",
+    "prop-types": "^15.6.2",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
-    "react-scripts": "1.1.5"
+    "react-redux": "^5.0.7",
+    "react-scripts": "1.1.5",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
