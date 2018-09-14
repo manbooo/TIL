@@ -8,7 +8,8 @@ import { Card, Icon } from 'antd'
 class MemoItem extends Component {
     static defaultProps = {
         item: {},
-        onRemove: console.warn('onRemove is not define')
+        onRemove: console.warn('onRemove is not define'),
+        onUpdate: console.warn('onUpdate is not define')
     }
 
     state = {
@@ -30,6 +31,7 @@ class MemoItem extends Component {
     _renderEditView = (item) => {
         return (
             <Card
+                key={item.id}
                 title="Edit Memo"
                 extra={
                     <a
@@ -39,7 +41,7 @@ class MemoItem extends Component {
                         <Icon type="close" theme="outlined" />
                     </a>}
             >
-                <MemoForm item={item}/>
+                <MemoForm item={item} editMode={this.state.editMode} onUpdate={this.props.onUpdate}/>
             </Card>
         )
     }
@@ -71,7 +73,7 @@ class MemoItem extends Component {
         const { item } = this.props
 
         return (
-            <div className="container-Memo">
+            <div className="container-MemoItem">
                 {
                     this.state.editMode ? this._renderEditView(item) : this._renderMemoView(item)
                 }
@@ -82,7 +84,8 @@ class MemoItem extends Component {
 
 MemoItem.propTypes = {
     item: PropTypes.object.isRequired,
-    onRemove: PropTypes.func.isRequired
+    onRemove: PropTypes.func.isRequired,
+    onUpdate: PropTypes.func.isRequired
 }
 
 export default MemoItem

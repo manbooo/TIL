@@ -1,5 +1,3 @@
-export const gernerateID = () => Math.floor(Math.random()*100000)
-
 export const addMemo = (list, memo) => [...list, memo]
 
 export const removeMemo = (list, id) => {

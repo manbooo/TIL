@@ -1,54 +1,52 @@
 import React, { Component } from 'react';
-import {gernerateID, addMemo, removeMemo} from '../lib/memoHelpers'
 
 import { Header, MemoForm, MemoList } from './../components/index'
 
+import { connect } from 'react-redux'
+import * as memoActions from './../actions/memo'
+
+
 import { Layout } from 'antd'
+import {bindActionCreators} from "redux";
+
 const { Content } = Layout
 
 class App extends Component {
 
-    state = {
-        memos: [
-            {id: 1, content: 'one'},
-            {id: 2, content: 'two'},
-            {id: 3, content: 'three'}
-        ]
-
-    }
-
     _onCreate = (value) => {
-        const newMemo = {id: gernerateID, ...value}
-        const updatedMemos = addMemo(this.state.memos, newMemo)
+        const { MemoAction } = this.props
 
-        this.setState({
-            memos: updatedMemos
-        })
-
+        MemoAction.memoAdd(value)
     }
 
     _onRemove = (id) => {
-        const { memos } = this.state
+        const { MemoAction } = this.props
 
-        const result = removeMemo(memos, id)
+        MemoAction.memoRemove(id)
+    }
 
-        this.setState({
-            memos: result
-        })
+    _onUpdate = (value) => {
+        const { MemoAction } = this.props
+
+        MemoAction.memoUpdate(value)
     }
 
     render() {
+        console.log(this.props.memo)
         return (
             <Layout>
                 <Header />
                 <Content style={{ padding: '0 50px', marginTop: 100 }}>
-                    <MemoForm onCreate={this._onCreate}/>
+                    <MemoForm
+                        onCreate={this._onCreate}
+                    />
 
                     <hr />
 
                     <MemoList
-                        memos={this.state.memos}
+                        memos={this.props.memo}
                         onRemove={this._onRemove}
+                        onUpdate={this._onUpdate}
                     />
                 </Content>
             </Layout>
@@ -56,4 +54,11 @@ class App extends Component {
     }
 }
 
-export default App
+export default connect(
+    (state) => ({
+        memo: state.memos
+    }),
+    (dispatch) => ({
+        MemoAction: bindActionCreators(memoActions, dispatch)
+    })
+)(App)

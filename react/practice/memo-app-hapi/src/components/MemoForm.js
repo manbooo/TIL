@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import { Form, Input, Button } from 'antd';
 
@@ -8,34 +9,78 @@ const FormItem = Form.Item
 
 class MemoForm extends Component {
 
+    static defaultProps = {
+        item: {
+            id: -1,
+            content: ''
+        },
+        editMode: false,
+        onCreate: console.warn('onCreate is not define'),
+        onUpdate: console.warn('onUpdate is not define')
+    }
+
     _handleSubmit = (e) => {
         e.preventDefault()
 
         const form = this.props.form
+        const editMode = this.props.editMode
 
-        form.validateFields((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
+        if (editMode) {
+            form.validateFields((err, values) => {
+                if (!err) {
+                    console.log('Received values of form: ', values)
 
-                this.props.onCreate(values)
+                    const updateItem = {
+                        id: this.props.item.id,
+                        content: values.content
+                    }
 
-                form.setFieldsValue({content: ''})
-            }
-        })
+                    this.props.onUpdate(updateItem)
+                }
+            })
+        } else {
+            form.validateFields((err, values) => {
+                if (!err) {
+                    console.log('Received values of form: ', values)
+
+                    this.props.onCreate(values)
+
+                    form.setFieldsValue({content: ''})
+                }
+            })
+        }
+
+    }
+
+    componentDidMount() {
+        const { setFieldsValue } = this.props.form;
+        const { item, editMode } = this.props
+
+        if (editMode) {
+            setFieldsValue({
+                id: item.id,
+                content: item.content
+            })
+        } else {
+            setFieldsValue({
+                content: item.content
+            })
+        }
     }
 
     render() {
-        const { getFieldDecorator } = this.props.form;
-        const { item } = this.props
+        const { getFieldDecorator } = this.props.form
 
         return (
             <Form onSubmit={this._handleSubmit}>
                 <FormItem>
                     {getFieldDecorator('content', {
-                        rules: [{ required: true, message: 'Please input content!', initialValue: '' }],
+                        rules: [{ required: true, message: 'Please input content!', initialValue: true }],
                     })(
-                        <TextArea row={5}/>
+                        <TextArea row={5} />
                     )}
+                </FormItem>
+                <FormItem>
                     <Button type="primary" htmlType="submit">
                         save
                     </Button>
@@ -43,6 +88,13 @@ class MemoForm extends Component {
             </Form>
         )
     }
+}
+
+MemoForm.proptype = {
+    item: PropTypes.object,
+    editMode: PropTypes.bool.isRequired,
+    onCreate: PropTypes.func.isRequired,
+    onUpdate: PropTypes.func.isRequired
 }
 
 const WrappedMemoForm = Form.create()(MemoForm);
