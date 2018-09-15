@@ -1,11 +1,17 @@
-import Resct, { Component } from 'react'
+import React, { Component } from 'react'
+
+import Header from 'components/Header.js'
+import Layout from 'components/Layout'
 
 class App extends Component {
     render() {
         return (
-            <div>
-                Hello MemoApp!
-            </div>
+            <Layout>
+                <Header />
+
+                <Layout.Main>Test</Layout.Main>
+            </Layout>
+
         )
     }
 }

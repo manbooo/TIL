@@ -1,5 +1,14 @@
+@import url('//fonts.googleapis.com/earlyaccess/jejugothic.css');
+@import url('https://fonts.googleapis.com/css?family=Anton|Kanit');
+
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: 'jeju-gothic', sans-serif;
+    background: #e9ecef;
+    box-sizing: border-box;
+}
+
+* {
+    box-sizing: inherit;
 }

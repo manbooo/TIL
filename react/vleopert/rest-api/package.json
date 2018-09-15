@@ -29,6 +29,5 @@
   "devDependencies": {
     "cross-env": "^5.2.0"
   },
-
   "proxy": "http://localhost:3001"
 }
