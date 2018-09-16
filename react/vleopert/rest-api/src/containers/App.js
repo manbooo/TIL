@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import Header from 'components/Header.js'
 import Layout from 'components/Layout'
+import WriteMemo from './WriteMemo'
 
 class App extends Component {
     render() {
@@ -9,7 +10,9 @@ class App extends Component {
             <Layout>
                 <Header />
 
-                <Layout.Main>Test</Layout.Main>
+                <Layout.Main>
+                    <WriteMemo />
+                </Layout.Main>
             </Layout>
 
         )

@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import PenderMiddleware from 'redux-pender'
 
-import reducer from 'modules'
+import reducer from 'modules/memo'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 

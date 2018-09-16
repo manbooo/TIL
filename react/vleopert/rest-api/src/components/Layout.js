@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { media } from 'lib/style-utils'
+
 const Wrapper = styled.div `
     padding-top: 60px; /* 헤더 높이 */
 `
@@ -17,7 +19,6 @@ Layout.Main = styled.div `
     width: 1200px;
     transition: all .3s;
     position: relative;
-    background: gray;
 
     ${media.desktop`
         width: 990px;

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^3.9.2",
     "axios": "^0.18.0",
     "immutable": "^3.8.2",
     "open-color": "^1.6.3",
@@ -18,7 +19,8 @@
     "redux": "^4.0.0",
     "redux-actions": "^2.6.1",
     "redux-pender": "^1.2.1",
-    "styled-components": "^3.4.6"
+    "styled-components": "^3.4.6",
+    "prop-types": "latest"
   },
   "scripts": {
     "start": "cross-env NODE_PATH=src react-scripts start",
