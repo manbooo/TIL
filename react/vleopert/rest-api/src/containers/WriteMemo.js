@@ -7,7 +7,7 @@ import InputForm  from 'components/Shared/InputForm'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import * as memoAction from 'modules/memo'
+import * as memoActions from 'modules/memo'
 
 class WriteMemo extends Component {
     state = {
@@ -15,30 +15,37 @@ class WriteMemo extends Component {
     }
 
     handleFocus =() => {
-        const { focused } = this.state
+        const {focused} = this.state
 
-        this.setState({
-            focused: !focused
-        })
-
-        console.log(this.state.focused)
+        if (!focused) {
+            this.setState({
+                focused: !focused
+            })
+        }
     }
 
     handleClickOutside() {
         const { focused } = this.state
 
-        this.setState({
-            focused: !focused
-        })
-
-        console.log(this.state.focused)
+        if (focused) {
+            this.setState({
+                focused: !focused
+            })
+        }
     }
 
     _onCreate = async (value) => {
-        const { MemoAction } = this.props
+        const { MemoAction, cursor, data } = this.props
+
+        console.log(cursor)
 
         try {
             await MemoAction.createMemo(value)
+
+            console.log(data)
+            console.log(cursor)
+
+            await MemoAction.getRecentMemo(cursor ? cursor : 0)
 
         } catch (e) {
             console.log(e)
@@ -47,14 +54,11 @@ class WriteMemo extends Component {
 
     render() {
         const { focused } = this.state
-        const { title, body } = this.props
 
         return (
             focused ? (
                 <WhiteBox>
                     <InputForm
-                        title={title}
-                        body={body}
                         onCreate={this._onCreate}
                     />
                 </WhiteBox>
@@ -69,10 +73,9 @@ class WriteMemo extends Component {
 
 export default connect(
     (state) => ({
-        title: state.title,
-        body: state.body
+        cursor: state.data.length
     }),
     (dispatch) => ({
-        MemoAction: bindActionCreators(memoAction, dispatch)
+        MemoAction: bindActionCreators(memoActions, dispatch)
     })
 )(enhanceWithClickOutside(WriteMemo))
