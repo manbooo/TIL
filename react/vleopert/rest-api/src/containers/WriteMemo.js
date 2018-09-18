@@ -11,25 +11,25 @@ import * as memoActions from 'modules/memo'
 
 class WriteMemo extends Component {
     state = {
-        focused: false
+        clicked: false
     }
 
-    handleFocus =() => {
-        const {focused} = this.state
+    handleInputClick =() => {
+        const {clicked} = this.state
 
-        if (!focused) {
+        if (!clicked) {
             this.setState({
-                focused: !focused
+                clicked: !clicked
             })
         }
     }
 
     handleClickOutside() {
-        const { focused } = this.state
+        const { clicked } = this.state
 
-        if (focused) {
+        if (clicked) {
             this.setState({
-                focused: !focused
+                clicked: !clicked
             })
         }
     }
@@ -53,17 +53,17 @@ class WriteMemo extends Component {
     }
 
     render() {
-        const { focused } = this.state
+        const { clicked } = this.state
 
         return (
-            focused ? (
+            clicked ? (
                 <WhiteBox>
                     <InputForm
-                        onCreate={this._onCreate}
+                        onSubmit={this._onCreate}
                     />
                 </WhiteBox>
             ) : (
-                <WhiteBox onClick={this.handleFocus}>
+                <WhiteBox onClick={this.handleInputClick}>
                     <InputPlaceholder/>
                 </WhiteBox>
             )
@@ -73,7 +73,7 @@ class WriteMemo extends Component {
 
 export default connect(
     (state) => ({
-        cursor: state.data.length
+        cursor: state.memo.data.length
     }),
     (dispatch) => ({
         MemoAction: bindActionCreators(memoActions, dispatch)

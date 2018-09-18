@@ -63,12 +63,19 @@ class Memo extends Component {
         onOpen: PropTypes.func
     }
 
+    handleClick = () => {
+        const { memo, onOpen } = this.props
+
+        onOpen(memo)
+    }
+
     render() {
         const { title, body } = this.props.memo
+        const { handleClick } = this
 
         return (
             <Sizer>
-                <Square>
+                <Square onClick={handleClick}>
                     <Contents>
                         { title && <Title>{title}</Title>}
                         <Body>{body}</Body>

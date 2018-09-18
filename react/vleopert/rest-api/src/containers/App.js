@@ -4,10 +4,12 @@ import Header from 'components/Header'
 import Layout from 'components/Layout'
 import WriteMemo from './WriteMemo'
 import MemoListContainer from './MemoListContainer'
+import MemoViewerContainer from './MemoViewerContainer'
 
 import * as memoActions from 'modules/memo'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+
 
 
 class App extends Component {
@@ -44,6 +46,8 @@ class App extends Component {
                     <WriteMemo />
                     <MemoListContainer />
                 </Layout.Main>
+
+                <MemoViewerContainer />
             </Layout>
 
         )
@@ -52,7 +56,7 @@ class App extends Component {
 
 export default connect(
     (state) => ({
-        cursor: state.data.length
+        cursor: state.memo.data.length
     }),
     (dispatch) => ({
         MemoAction: bindActionCreators(memoActions, dispatch)

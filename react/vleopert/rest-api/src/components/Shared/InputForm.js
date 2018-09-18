@@ -19,7 +19,7 @@ class InputForm extends Component {
             if (!err) {
                 console.log('Received values of form: ', values)
 
-                this.props.onCreate(values)
+                this.props.onSubmit(values)
 
                 form.setFieldsValue({ title: '', body: '' })
             }
@@ -27,7 +27,13 @@ class InputForm extends Component {
     }
 
     componentDidMount() {
+        const { setFieldsValue } = this.props.form
+        const { title, body } = this.props
 
+        setFieldsValue({
+            title: title,
+            body: body
+        })
     }
 
     render() {
