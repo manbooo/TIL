@@ -1,0 +1,37 @@
+{
+  "name": "component-test",
+
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.5.1",
+    "react-dom": "^16.5.1",
+    "react-scripts": "1.1.5"
+  },
+  "jest": {
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
+    "setupTestFrameworkScriptFile": "<rootDir>/__tests__/setup/setupEnzyme.js",
+    "testPathIgnorePatterns": ["./__tests__/setup/"],
+    "verbose": true,
+    "transform": {
+      "^.+\\.(js|jsx)$": "babel-jest",
+      "^.+\\.css$": "jest-css",
+      "^(?!.*\\.(js|jsx|css|json)$)": "jest-file"
+    },
+    "testURL": "http://localhost"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
+    "enzyme-to-json": "^3.3.4",
+    "jest": "^23.6.0",
+    "redux-mock-store": "^1.5.3"
+  }
+}
