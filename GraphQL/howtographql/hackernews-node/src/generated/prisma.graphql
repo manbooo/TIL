@@ -1,7 +1,11 @@
 # source: https://eu1.prisma.sh/juyeon_park-2f06b1/graphql-tutorial/dev
-# timestamp: Mon Oct 15 2018 21:39:51 GMT+0900 (KST)
+# timestamp: Tue Oct 16 2018 10:50:48 GMT+0900 (KST)
 
 type AggregateLink {
+  count: Int!
+}
+
+type AggregateUser {
   count: Int!
 }
 
@@ -10,13 +14,11 @@ type BatchPayload {
   count: Long!
 }
 
-scalar DateTime
-
 type Link implements Node {
   id: ID!
-  createdAt: DateTime!
   description: String!
   url: String!
+  postedBy: User
 }
 
 """A connection to a list of items."""
@@ -30,6 +32,17 @@ type LinkConnection {
 }
 
 input LinkCreateInput {
+  description: String!
+  url: String!
+  postedBy: UserCreateOneWithoutLinksInput
+}
+
+input LinkCreateManyWithoutPostedByInput {
+  create: [LinkCreateWithoutPostedByInput!]
+  connect: [LinkWhereUniqueInput!]
+}
+
+input LinkCreateWithoutPostedByInput {
   description: String!
   url: String!
 }
@@ -46,19 +59,18 @@ type LinkEdge {
 enum LinkOrderByInput {
   id_ASC
   id_DESC
-  createdAt_ASC
-  createdAt_DESC
   description_ASC
   description_DESC
   url_ASC
   url_DESC
   updatedAt_ASC
   updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type LinkPreviousValues {
   id: ID!
-  createdAt: DateTime!
   description: String!
   url: String!
 }
@@ -105,6 +117,32 @@ input LinkSubscriptionWhereInput {
 input LinkUpdateInput {
   description: String
   url: String
+  postedBy: UserUpdateOneWithoutLinksInput
+}
+
+input LinkUpdateManyWithoutPostedByInput {
+  create: [LinkCreateWithoutPostedByInput!]
+  connect: [LinkWhereUniqueInput!]
+  disconnect: [LinkWhereUniqueInput!]
+  delete: [LinkWhereUniqueInput!]
+  update: [LinkUpdateWithWhereUniqueWithoutPostedByInput!]
+  upsert: [LinkUpsertWithWhereUniqueWithoutPostedByInput!]
+}
+
+input LinkUpdateWithoutPostedByDataInput {
+  description: String
+  url: String
+}
+
+input LinkUpdateWithWhereUniqueWithoutPostedByInput {
+  where: LinkWhereUniqueInput!
+  data: LinkUpdateWithoutPostedByDataInput!
+}
+
+input LinkUpsertWithWhereUniqueWithoutPostedByInput {
+  where: LinkWhereUniqueInput!
+  update: LinkUpdateWithoutPostedByDataInput!
+  create: LinkCreateWithoutPostedByInput!
 }
 
 input LinkWhereInput {
@@ -156,28 +194,6 @@ input LinkWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
   description: String
 
   """All values that are not equal to given value."""
@@ -258,6 +274,7 @@ input LinkWhereInput {
 
   """All values not ending with the given string."""
   url_not_ends_with: String
+  postedBy: UserWhereInput
 }
 
 input LinkWhereUniqueInput {
@@ -272,11 +289,17 @@ scalar Long
 
 type Mutation {
   createLink(data: LinkCreateInput!): Link!
+  createUser(data: UserCreateInput!): User!
   updateLink(data: LinkUpdateInput!, where: LinkWhereUniqueInput!): Link
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   deleteLink(where: LinkWhereUniqueInput!): Link
+  deleteUser(where: UserWhereUniqueInput!): User
   upsertLink(where: LinkWhereUniqueInput!, create: LinkCreateInput!, update: LinkUpdateInput!): Link!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   updateManyLinks(data: LinkUpdateInput!, where: LinkWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   deleteManyLinks(where: LinkWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -308,8 +331,11 @@ type PageInfo {
 
 type Query {
   links(where: LinkWhereInput, orderBy: LinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Link]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   link(where: LinkWhereUniqueInput!): Link
+  user(where: UserWhereUniqueInput!): User
   linksConnection(where: LinkWhereInput, orderBy: LinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LinkConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -320,4 +346,317 @@ type Query {
 
 type Subscription {
   link(where: LinkSubscriptionWhereInput): LinkSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type User implements Node {
+  id: ID!
+  name: String!
+  email: String!
+  password: String!
+  links(where: LinkWhereInput, orderBy: LinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Link!]
+}
+
+"""A connection to a list of items."""
+type UserConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  name: String!
+  email: String!
+  password: String!
+  links: LinkCreateManyWithoutPostedByInput
+}
+
+input UserCreateOneWithoutLinksInput {
+  create: UserCreateWithoutLinksInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutLinksInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+"""An edge in a connection."""
+type UserEdge {
+  """The item at the end of the edge."""
+  node: User!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  email_ASC
+  email_DESC
+  password_ASC
+  password_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  name: String!
+  email: String!
+  password: String!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+}
+
+input UserUpdateInput {
+  name: String
+  email: String
+  password: String
+  links: LinkUpdateManyWithoutPostedByInput
+}
+
+input UserUpdateOneWithoutLinksInput {
+  create: UserCreateWithoutLinksInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutLinksDataInput
+  upsert: UserUpsertWithoutLinksInput
+}
+
+input UserUpdateWithoutLinksDataInput {
+  name: String
+  email: String
+  password: String
+}
+
+input UserUpsertWithoutLinksInput {
+  update: UserUpdateWithoutLinksDataInput!
+  create: UserCreateWithoutLinksInput!
+}
+
+input UserWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
+  links_every: LinkWhereInput
+  links_some: LinkWhereInput
+  links_none: LinkWhereInput
+}
+
+input UserWhereUniqueInput {
+  id: ID
+  email: String
 }
