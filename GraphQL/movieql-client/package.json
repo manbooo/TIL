@@ -1,20 +1,30 @@
 {
   "name": "movieql-client",
-  "version": "1.0.0",
-  "description": "Client for the MovieQL API built with Apollo",
-  "main": "index.js",
-  "author": "manbooo<jjuya9381@gmail.com>",
-  "license": "MIT",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "antd": "^3.10.1",
-    "apollo-boost": "^0.1.16",
-    "graphql": "^14.0.2",
-    "graphql-tag": "^2.10.0",
-    "next": "^6.1.1",
-    "react": "^16.5.2",
-    "react-apollo": "^2.2.4",
-    "react-dom": "^16.5.2",
-    "hapi": "^17.1.1",
-    "inert": "^5.1.0"
-  }
+    "apollo-boost": "^0.1.10",
+    "graphql": "^0.13.2",
+    "graphql-tag": "^2.9.2",
+    "react": "^16.4.1",
+    "react-apollo": "^2.1.6",
+    "react-dom": "^16.4.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
