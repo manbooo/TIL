@@ -1,0 +1,18 @@
+{
+  "name": "movieql-client-with-next",
+  "version": "1.0.0",
+  "description": "Client for the MovieQL API built with Apollo and NextJS",
+  "main": "index.js",
+  "author": "manbooo<jjuya9381@google.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react": "latest",
+    "styled-components": "latest",
+    "next": "latest",
+    "prop-types": "latest",
+    "graphql-tag": "latest"
+  },
+  "scripts": {
+    "start": "next"
+  }
+}
