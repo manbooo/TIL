@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
 import Link from 'next/link'
 
 import styled from 'styled-components'
@@ -29,7 +30,7 @@ const Title = styled.span`
 `
 
 const Movie = ({ id, title, rating, poster }) => (
-    <Link href={`/details/${id}`}>
+    <Link href={`/detail/${id}`}>
         <Card background={poster}>
             <Title>
                 {title} / {rating}⭐️

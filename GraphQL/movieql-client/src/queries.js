@@ -13,19 +13,19 @@ export const HOME_PAGE = gql`
 
 export const MOVIE_DETAILS = gql`
     query getMovieDetails($movieId: Int!) {
-    movie(id: $movieId) {
-      medium_cover_image
-      title
-      rating
-      description_intro
-      language
-      genres
+        movie(id: $movieId) {
+          medium_cover_image
+          title
+          rating
+          description_intro
+          language
+          genres
+        }
+        suggestions(id: $movieId) {
+          id
+          title
+          rating
+          medium_cover_image
+        }
     }
-    suggestions(id: $movieId) {
-      id
-      title
-      rating
-      medium_cover_image
-    }
-  }
 `

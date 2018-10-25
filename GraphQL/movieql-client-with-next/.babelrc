@@ -1,5 +1,55 @@
 {
   "presets": [
     "next/babel"
+  ],
+  "env": {
+    "production": {
+      "plugins": [
+        [
+          "dotenv-import",
+          {
+            "moduleName": "@env",
+            "path": ".env.production"
+          }
+        ]
+      ]
+    }
+  },
+  "plugins": [
+    [
+      "dotenv-import",
+      {
+        "moduleName": "@env",
+        "path": ".env",
+        "blacklist": null,
+        "whitelist": null,
+        "safe": false,
+        "allowUndefined": false
+      }
+    ],
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "alias": {
+          "routes": "./routes",
+          "lib": "./lib",
+          "utils": "./utils",
+          "config": "./config",
+          "components": "./components",
+          "modules": "./modules",
+          "layouts": "./layouts",
+          "styles": "./styles",
+          "constants": "./constants",
+          "types": "./types",
+          "static": "./static"
+        }
+      }
+    ],
+    ["styled-components", { "ssr": true, "displayName": true, "preprocess": false } ],
+    ["import", {"libraryName": "antd", "style": false}],
+    [
+      "graphql-tag"
+    ]
   ]
 }
