@@ -1,0 +1,16 @@
+{
+  "name": "proj",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "manbooo <jjuya9381@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "awesome-typescript-loader": "^5.2.1",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
+    "source-map-loader": "^0.2.4"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.1.2"
+  }
+}
