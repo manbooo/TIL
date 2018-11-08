@@ -1306,7 +1306,7 @@ ajv-keywords@^3.1.0:
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-3.2.0.tgz#e86b819c602cf8821ad637413698f1dec021847a"
   integrity sha1-6GuBnGAs+IIa1jdBNpjx3sAhhHo=
 
-ajv@^6.1.0:
+ajv@^6.1.0, ajv@^6.1.1:
   version "6.5.5"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.5.5.tgz#cf97cdade71c6399a92c6d6c4177381291b781a1"
   integrity sha512-7q7gtRQDJSyuEHjuVgHoUa2VuemFiCMrfQc9Tc08XTAc4Zj/5U1buQJ0HU6i7fKjXU09SVgSmxa4sLvuvS8Iyg==
@@ -5464,6 +5464,19 @@ react-dev-utils@^6.1.0:
     sockjs-client "1.1.5"
     strip-ansi "4.0.0"
     text-table "0.2.0"
+
+react-docgen-typescript-webpack-plugin@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-docgen-typescript-webpack-plugin/-/react-docgen-typescript-webpack-plugin-1.1.0.tgz#4bfb8c3312fce487083924842cf03f66177ab9df"
+  integrity sha1-S/uMMxL85IcIOSSELPA/Zhd6ud8=
+  dependencies:
+    ajv "^6.1.1"
+    react-docgen-typescript "^1.2.3"
+
+react-docgen-typescript@^1.2.3:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/react-docgen-typescript/-/react-docgen-typescript-1.12.0.tgz#be25d3604e05676f05a1248952f8d5823d7a216a"
+  integrity sha512-EAb2W5UNTTR75zTWm8bbn9iQmh+W/9DvnCazIdzDb+TnzvpcxEFCjRia+Rhpkx4FRRS3AYyJrw5Ar3zX51gJfQ==
 
 react-docgen@^3.0.0-rc.1:
   version "3.0.0-rc.2"
