@@ -1,0 +1,21 @@
+{
+  "name": "EGGHEAD-STORYBOOK",
+  "version": "1.0.0",
+  "description": "Design Systems with React and Typescript in Storybook",
+  "main": "index.js",
+  "author": "manbooo <jjuya9381@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.1.5",
+    "@storybook/react": "^4.0.4",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.0-beta.6"
+  },
+  "dependencies": {
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  },
+  "scripts": {
+    "storybook": "start-storybook -p 6006 -c .storybook"
+  }
+}
