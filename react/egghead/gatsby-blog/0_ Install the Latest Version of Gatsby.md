@@ -19,8 +19,7 @@ $ gatsby -v
 #### new project : `gatsby new`
 
 ```bash
-$ gatsby new my-blog  
-$ htps://github.com/gatsbyjs/gatsby-starter-hello-world\#v2
+$ gatsby new my-blog https://github.com/gatsbyjs/gatsby-starter-hello-world
 ```
 
 
