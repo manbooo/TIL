@@ -5,6 +5,10 @@
   "author": "manbooo <jjuya9381@naver.com>",
   "license": "MIT",
   "scripts": {
-    
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   }
 }
