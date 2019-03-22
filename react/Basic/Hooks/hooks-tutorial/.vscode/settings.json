@@ -1,0 +1,11 @@
+{
+    "editor.fontFamily": "Hack",
+    "editor.fontSize": 14,
+    "editor.formatOnSave": true,
+    "prettier.eslintIntegration": true,
+    "prettier.semi": false,
+    "eslint.autoFixOnSave": true,
+    "javascript.preferences.quoteStyle": "single",
+    "prettier.singleQuote": true
+  }
+  
