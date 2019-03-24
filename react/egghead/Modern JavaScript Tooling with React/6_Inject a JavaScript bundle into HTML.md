@@ -96,3 +96,23 @@ plugins: [new HtmlWebpackPlugin({
 ...
 ```
 
+
+
+### webpack watch mode
+
+- 파일의 변경사항을 웹에 반영된 것을 확인하기 위해서 
+  - 현재까지의 설정에서는 빌드 후 웹 페이지 새로고침을 해야 변경 사항 적용을 화긴 할 수 있음
+  - watch 모드에서 webpack을 실행하면 파일을 저장할 때마다 자동으로 다시 빌드
+
+
+
+##### package.json
+
+```json
+"scripts": {
+    "build": "webpack",
+    "dev": "webpack --watch --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+```
+
