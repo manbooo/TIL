@@ -1,11 +1,23 @@
 {
   "name": "next-config",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "server.js",
   "author": "manbooo <jjuya9381@naver.com>",
   "license": "MIT",
+  "scripts": {
+    "next:build": "next build",
+    "next:export": "next export -o .next-export",
+    "dev": "nodemon index.js",
+    "build:clean": "rimraf lib",
+    "start": "NODE_ENV=production node server.js",
+    "analyze": "BUNDLE_ANALYZE=both yarn next:build"
+  },
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "compression": "^1.7.3",
+    "express": "^4.16.4",
     "next": "^8.0.3",
+    "next-transpile-modules": "^2.2.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },
@@ -15,9 +27,12 @@
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-decorators": "^7.1.2",
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@zeit/next-bundle-analyzer": "^0.1.2",
     "babel-plugin-dotenv-import": "^1.3.0",
     "babel-plugin-import": "^1.11.0",
     "babel-plugin-inline-react-svg": "^1.0.1",
+    "babel-plugin-styled-components": "^1.10.0",
     "nodemon": "^1.18.6",
     "rimraf": "^2.6.2"
   }
