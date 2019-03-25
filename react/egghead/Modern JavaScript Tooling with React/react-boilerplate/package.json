@@ -7,6 +7,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
     "dev": "webpack-dev-server --config webpack.config.dev.js",
+    "dev:hot": "webpack-dev-server --open --hot --config webpack.config.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
@@ -27,6 +28,7 @@
   "dependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.8.5",
-    "react-dom": "^16.8.5"
+    "react-dom": "^16.8.5",
+    "react-hot-loader": "^4.8.0"
   }
 }
