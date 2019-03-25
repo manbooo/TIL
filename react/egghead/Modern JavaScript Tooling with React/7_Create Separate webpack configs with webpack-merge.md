@@ -46,3 +46,45 @@ module.exports-merge(baseConfig, {
   },
 ```
 
+
+
+### Serve a webpack Bundle while Developing with webpack-dev-server
+
+- 개발 로컬 서버
+
+
+
+#### 설치
+
+```bash
+npm -i D webpack-dev-server
+yarn add webpack-dev-server --dev
+```
+
+
+
+#### 소스코드
+
+##### package.json
+
+```json
+"scripts": {
+    "build": "webpack --config webpack.config.prod.js",
+    "dev": "webpack-dev-server --config webpack.config.dev.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+}
+```
+
+
+
+##### webpack.config.dev.js
+
+```js
+module.exports = merge(baseConfig, {
+  mode: 'development',
+  devServer: {
+    port: 9000
+  }
+})
+```
+
