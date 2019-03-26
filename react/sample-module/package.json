@@ -1,7 +1,6 @@
 {
   "name": "sample-module",
   "version": "0.1.0",
-  "main": "server.js",
   "author": "manbooo <jjuya9381@naver.com>",
   "license": "MIT",
   "scripts": {
@@ -10,6 +9,7 @@
     "dev": "nodemon index.js",
     "build:clean": "rimraf lib",
     "start": "NODE_ENV=production node server.js",
+    "storybook": "start-storybook -p 9000 -c .storybook",
     "analyze": "BUNDLE_ANALYZE=both yarn next:build"
   },
   "dependencies": {
@@ -23,15 +23,18 @@
     "react-dom": "^16.8.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.4",
+    "@babel/core": "^7.4.0",
     "@babel/node": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-decorators": "^7.1.2",
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+		"@storybook/react": "^4.0.4",
     "@zeit/next-bundle-analyzer": "^0.1.2",
+    "babel-loader": "^8.0.5",
     "babel-plugin-import": "^1.11.0",
     "babel-plugin-styled-components": "^1.10.0",
+    "babel-preset-react-app": "^7.0.2",
     "nodemon": "^1.18.6",
     "rimraf": "^2.6.2"
   }

@@ -1,6 +1,6 @@
 module.exports = api => {
   api.cache(true)
-  const presets = ['next/babel']
+  const presets = ['next/babel', '@babel/preset-react']
 
   const plugins = [
     [
