@@ -1,5 +1,4 @@
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
-const withCss = require('@zeit/next-css')
 
 // fix: prevents error when .css files are required by node
 if (typeof require !== 'undefined') {
@@ -7,7 +6,7 @@ if (typeof require !== 'undefined') {
 }
 
 module.exports = withBundleAnalyzer(
-  withCss({
+  {
     webpack(config, options) {
       // Further custom configuration here
       return config
@@ -24,5 +23,5 @@ module.exports = withBundleAnalyzer(
         reportFilename: './bundles/client.html'
       }
     }
-  })
+  }
 )

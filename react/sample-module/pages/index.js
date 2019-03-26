@@ -1,7 +1,6 @@
 import React from 'react'
-import 'antd/dist/antd.css'
 
-import { Button, Table, Divider, Tag } from 'antd'
+import { Button } from 'antd'
 
 class App extends React.Component {
   state = {
