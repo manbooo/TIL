@@ -185,6 +185,10 @@ storiesOf('Component', module).add('TableComponent', () => {
     console.log(page)
   }
 
+  const onRowClick = (record, rowIndex) => {
+    console.log(record)
+  }
+
   return (
     <Layout>
       <TableComponent
@@ -194,6 +198,7 @@ storiesOf('Component', module).add('TableComponent', () => {
         actions={actions}
         pagination={pagination}
         onPageHandle={onPageHandle}
+        onRowClick={onRowClick}
       />
     </Layout>
   )

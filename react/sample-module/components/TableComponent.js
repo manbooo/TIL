@@ -23,6 +23,7 @@ const TableComponent = ({
   dataSource,
   pagination,
   onPageHandle,
+  onRowClick = () =>{},
   actions = []
 }) => {
   const paginationConfig = {
@@ -31,7 +32,7 @@ const TableComponent = ({
     total: pagination?.total || 1,
     onChange: onPageHandle
   }
-  
+
   return (
     <React.Fragment>
       <Row
@@ -49,7 +50,14 @@ const TableComponent = ({
         <Col style={colStyle}>{renderActions(parent, dataSource, actions)}</Col>
       </Row>
 
-      <Table columns={columns} dataSource={dataSource} pagination={paginationConfig} />
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        pagination={paginationConfig}
+        onRow={(record, rowIndex) => {return {
+            onClick: e => onRowClick(record, rowIndex)
+        }}}
+      />
     </React.Fragment>
   )
 }
